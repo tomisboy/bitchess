@@ -1,0 +1,22 @@
+---
+  version: '3.7'
+
+  services:
+    nodetest:
+      image: bitchess-node:latest
+      container_name: nodetest
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.bitchess.entrypoints=websecure"
+        - "traefik.http.routers.bitchess.rule=Host(`bitchess.ddns.net`)"
+        - "traefik.http.routers.bitchess.tls=true"
+        - "traefik.http.routers.bitchess.tls.certresolver=default"
+
+      networks:
+        - traefik_proxy
+  networks:
+    traefik_proxy:
+      external:
+        name: traefik_proxy
+    default:
+      driver: bridge
