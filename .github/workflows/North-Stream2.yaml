@@ -6,6 +6,7 @@ on:
       - main
       
   pull_request:
+  
 jobs:
  build:
    runs-on: self-hosted
@@ -26,17 +27,15 @@ jobs:
         run: touch src/.env && echo "${{ secrets.DB_CONNECT }}" >> src/.env
         
         
-        
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          nocache: true
           context: .
           file: ./Dockerfile
           push: true
           tags: bitchess/bitchess-node:latest
           
-      - name: Delete old docker images (localy)
+      - name: Delete old docker images (locally)
         run: docker rmi -f bitchess/bitchess-node:latest
          
       - name: Delete old docker Instances
