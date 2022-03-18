@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
         
       - name: Setting DB Connection String
-        run: touch .env && echo "${{ secrets.DB_CONNECT }}" >> .env
+        run: touch /src/.env && echo "${{ secrets.DB_CONNECT }}" >> /src/.env
         
         
         
@@ -34,10 +34,10 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: bitchess/bitchess:latest
+          tags: bitchess/bitchess-node:latest
           
       - name: Delete old docker images (localy)
-        run: docker rmi -f bitchess/bitchess:latest
+        run: docker rmi -f bitchess/bitchess-node:latest
          
       - name: Delete old docker Instances
         run: docker rm -f bitchess
