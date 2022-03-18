@@ -1,0 +1,5 @@
+##################
+#ignore traefik files
+acme.json
+traefik.log
+access.log
