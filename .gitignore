@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 .env
 src/node_modules
+=======
+>>>>>>> 617770eb5d6103665a346420113afbc0389874ba
 ##################
 #ignore traefik files
 acme.json
