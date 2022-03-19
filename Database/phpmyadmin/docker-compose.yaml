@@ -2,7 +2,7 @@
 version: '3.7'
 
 services:
-      phpmyadmin:
+    phpmyadmin:
       container_name: phpmyadmin
       image: phpmyadmin
       restart: always
