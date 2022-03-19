@@ -8,13 +8,6 @@ var con = mysql.createConnection({
      connectionLimit: 5
 });
 
-con.connect(function(err) {
-    if (err) throw err;
-    console.log("You are connected!");
-    connected = "yes you are connected"
-  });
-con.end();
-
 module.exports = {
   getUser: function(id){
     connection.query('SELECT * FROM accounts WHERE id = ?', [id], function(error, results, fields) {
