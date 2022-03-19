@@ -6,7 +6,6 @@ services:
       container_name: phpmyadmin
       image: phpmyadmin
       restart: always
-      ports:
       environment:
         - PMA_ARBITRARY=1
       networks:
