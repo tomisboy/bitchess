@@ -10,7 +10,8 @@ services:
         - PMA_ARBITRARY=1
       networks:
         - traefik_proxy
-     
+      ports:
+        - 5555:80
 
 networks:
   traefik_proxy:
