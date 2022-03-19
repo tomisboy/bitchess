@@ -1,0 +1,22 @@
+---
+version: '3.7'
+
+services:
+    phpmyadmin:
+      container_name: phpmyadmin
+      image: phpmyadmin
+      restart: always
+      environment:
+        - PMA_ARBITRARY=1
+      networks:
+        - traefik_proxy
+      ports:
+        - 5555:80
+
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
+  default:
+    driver: bridge
+

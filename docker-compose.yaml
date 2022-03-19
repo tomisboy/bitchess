@@ -3,20 +3,17 @@
 
   services:
     nodetest:
-      image: bitchess-node:latest
-      container_name: nodetest
+      image: bitchess/bitchess-node:latest
+      container_name: bitchess-node
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.ws.entrypoints=websecure"
-        - "traefik.http.routers.ws.rule=Host(`08f8015e-ff43-4972-924a-04fb27fdedd6.ma.bw-cloud-instance.org`)"
-        - "traefik.http.routers.ws.tls=true"
-        - "traefik.http.routers.ws.tls.certresolver=default"
+        - "traefik.http.routers.bitchess.entrypoints=websecure"
+        - "traefik.http.routers.bitchess.rule=Host(`bitchess.ddns.net`)"
+        - "traefik.http.routers.bitchess.tls=true"
+        - "traefik.http.routers.bitchess.tls.certresolver=default"
 
       networks:
         - traefik_proxy
-#      ports:
-#        - 443:3000
-
   networks:
     traefik_proxy:
       external:

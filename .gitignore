@@ -1,2 +1,8 @@
 .env
 src/node_modules
+##################
+#ignore traefik files
+acme.json
+traefik.log
+access.log
+
