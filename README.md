@@ -3,7 +3,7 @@ Product Catalog (What will be implemented)
 
 # Stack Description
 Currently we are using a Linux Server from [hetzner](https://www.hetzner.com/) with a installed Docker-Runtime.
-This server is also the Github Runner for [GitHub Actions](https://github.com/tomisboy/bitchess/blob/main/.github/README.MD)
+This server is also the Github Runner for [GitHub Actions](https://github.com/tomisboy/bitchess/blob/main/.github/info.MD)
 The application itself is written in Node.js and deployed containerized via Docker.
 
 ### TLS 
