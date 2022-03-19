@@ -2,21 +2,27 @@ const express = require('express')
 const app = express()
 require('dotenv').config();
 var path = require('path');
-
-
-const mongoose = require('mongoose')
-
-
-
-
-
 app.use(express.static(path.join(__dirname, 'public')));
+var connected = "no"
 
 
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true })
-const db = mongoose.connection
-db.on('error', error => console.error(error))
-db.once('open', () => console.log('Connected to Mongoose'))
+
+
+var mysql = require('mysql');
+var con = mysql.createConnection({
+     host: process.env.DB_HOST, 
+     user:'root', 
+     password: process.env.DB_PASSWORD,
+     connectionLimit: 5
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("You are connected!");
+    connected = "yes you are connected"
+  });
+con.end();
+ 
 
 
 
@@ -28,10 +34,17 @@ app.get('/', (req, res) => {
 })
 
 
+app.get('/connected', (req, res) => {
+res.render('connected.ejs', {connected: connected}
+  )
+})
 
 app.get('/login', (req, res) => {
+
     res.render('login.ejs')
 })
+
+
 
 
 app.get('/register', (req, res) => {
