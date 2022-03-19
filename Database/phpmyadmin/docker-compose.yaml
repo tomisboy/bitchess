@@ -10,13 +10,8 @@ services:
         - PMA_ARBITRARY=1
       networks:
         - traefik_proxy
+     
 
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.phpmyadmin.entrypoints=websecure"
-        - "traefik.http.routers.phpmyadmin.rule=Host(`bitchess.ddns.net`) && (PathPrefix(`/phpmyadmin`)"
-        - "traefik.http.routers.phpmyadmin.tls=true"
-        - "traefik.http.routers.phpmyadmin.tls.certresolver=default"
 networks:
   traefik_proxy:
     external:
