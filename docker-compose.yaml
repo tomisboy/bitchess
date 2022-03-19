@@ -3,7 +3,7 @@
 
   services:
     nodetest:
-      image: bitchess-node:latest
+      image: bitchess/bitchess-node:latest
       container_name: bitchess-node
       labels:
         - "traefik.enable=true"
