@@ -39,7 +39,7 @@ jobs:
         run: docker rmi -f bitchess/bitchess-node:latest
          
       - name: Delete old docker Instances
-        run: docker rm -f bitchess
+        run: docker rm -f bitchess-node
         
       - name: Start Docker-App
         run: docker-compose up -d

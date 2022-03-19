@@ -4,7 +4,7 @@
   services:
     nodetest:
       image: bitchess-node:latest
-      container_name: nodetest
+      container_name: bitchess-node
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.bitchess.entrypoints=websecure"
