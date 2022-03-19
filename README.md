@@ -15,9 +15,7 @@ The database used is maria-db, which also runs locally on the Linux server as a 
 
 
 ## How to ensure that no secrets end up in Github in plain text:
-For example, the password required by the application in the backend to connect the database is stored in an extra ".env" environment variable file, which is not stored in GitHub.(For local development, however, this file must be present).
-
-This .env file is only created during the CI/CD pipeline with GitHub actions. In this workflow the required secrets/passwords can be taken from the own Github Secret Store. <br>
+For example, the password required by the application in the backend to connect the database is stored in an extra ".env" environment variable file, which is not stored in GitHub. (For local development, however, this file must be present).  <br>
 ![image](https://user-images.githubusercontent.com/15163807/159121449-25443351-be38-4dd3-8374-318fee16ff3a.png)
 
 For the Productiv environment, this .env file is only [created during the CI/CD pipeline with GitHub actions](https://github.com/tomisboy/bitchess/blob/d96dbe0b545392f3c139bce8dd209dd35f66bcc0/.github/workflows/North-Stream2.yaml#L26). In this workflow the required secrets/passwords can be taken from the own Github Secret Store. 
