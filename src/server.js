@@ -16,12 +16,12 @@ app.listen(3000)
 
 //Routing Targets
 app.get('/', (req, res) => {
-    res.render('index.ejs')
-})
-
-app.get('/login', (req, res) => {
     res.render('login.ejs')
 })
+
+/*app.get('/login', (req, res) => {
+    res.render('login.ejs')
+})*/
 
 app.get('/register', (req, res) => {
     res.render('register.ejs')
