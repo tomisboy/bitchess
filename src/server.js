@@ -43,6 +43,22 @@ app.get('/statistics', (req, res) => {
     res.render('statistics.ejs')
 })
 
+app.get('/createpublic', (req, res) => {
+    res.render('createpublic.ejs')
+})
+
+app.get('/createprivate', (req, res) => {
+    res.render('createprivate.ejs')
+})
+
+app.get('/joinpublic', (req, res) => {
+    res.render('joinpublic.ejs')
+})
+
+app.get('/joinprivate', (req, res) => {
+    res.render('joinprivate.ejs')
+})
+
 //Post-Methods
 app.post('/loginsubmit', function (req, res) {
     console.log(req.body)

@@ -93,3 +93,23 @@ a:hover {
     width: 100%;
     display: block;
   }
+.back-arrow{
+  top: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.profilecontainer {
+  position: relative;
+}
+.profile-icon {
+  position: absolute;
+  top: -35px;
+  margin-right: 20px;
+  right: -80px;
+  height: 48px;
+  font-size: 40px;
+  color: #ffeba7;
+  -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+  cursor: pointer;
+}
