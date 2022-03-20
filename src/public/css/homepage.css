@@ -60,12 +60,13 @@ a:hover {
   .flex-parent-element {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
   }
   
   .flex-child-element {
     display: flex;
+    margin: 30px;
   }
   .input-icon {
     position: absolute;
