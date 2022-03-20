@@ -27,8 +27,36 @@ app.get('/register', (req, res) => {
     res.render('register.ejs')
 })
 
-app.get('/bla', (req, res) =>{
-    res.render('bla.ejs')
+app.get('/homepage', (req, res) => {
+    res.render('homepage.ejs')
+})
+
+app.get('/create', (req, res) => {
+    res.render('create.ejs')
+})
+
+app.get('/join', (req, res) => {
+    res.render('join.ejs')
+})
+
+app.get('/statistics', (req, res) => {
+    res.render('statistics.ejs')
+})
+
+app.get('/createpublic', (req, res) => {
+    res.render('createpublic.ejs')
+})
+
+app.get('/createprivate', (req, res) => {
+    res.render('createprivate.ejs')
+})
+
+app.get('/joinpublic', (req, res) => {
+    res.render('joinpublic.ejs')
+})
+
+app.get('/joinprivate', (req, res) => {
+    res.render('joinprivate.ejs')
 })
 
 //Post-Methods

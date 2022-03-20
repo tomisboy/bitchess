@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+body{
+	font-family: 'Poppins', sans-serif;
+	font-weight: 300;
+	font-size: 15px;
+	line-height: 1.7;
+	color: #c4c3ca;
+	background-color: #1f2029;
+	overflow-x: hidden;
+  margin-right: 100px;
+  margin-left: 100px;
+}
+a {
+	cursor: pointer;
+  transition: all 200ms linear;
+}
+a:hover {
+	text-decoration: none;
+}
+.card-wrap {
+    position: relative;
+    width: 350px;
+    max-width: 100%;
+    height: 300px;
+    margin-top: 60px;
+  }
+  .card-wrapper {
+    width: 100%;
+    height: 100%;
+    position:absolute;    
+    top: 0;
+    left: 0;  
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    background-color: #2a2b38;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 300%;
+    position: absolute;
+    border-radius: 6px;
+    left: 0;
+    top: 0;
+  }
+  .card:hover {
+     box-shadow: 0 0 15px rgba(255,235,167, 0.6);
+     transform: scale(1.02);
+     cursor: pointer;
+  }
+  .center-wrap{
+    position: absolute;
+    width: 100%;
+    padding: 0 35px;
+    top: 50%;
+    left: 0;
+    transform: translate3d(0, -50%, 35px) perspective(100px);
+  }
+  .flex-parent-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .flex-child-element {
+    display: flex;
+    margin: 30px;
+  }
+  .input-icon {
+    position: absolute;
+    top: 0;
+    left: 18px;
+    height: 48px;
+    font-size: 40px;
+    line-height: 80px;
+    text-align: left;
+    color: #ffeba7;
+    -webkit-transition: all 200ms linear;
+      transition: all 200ms linear;
+  }
+.logo img {
+  display: block;
+	height: 60px;
+	width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 60px;
+}
+.section{
+    position: relative;
+    width: 100%;
+    display: block;
+  }
+.back-arrow{
+  top: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.profilecontainer {
+  position: relative;
+}
+.profile-icon {
+  position: absolute;
+  top: -35px;
+  margin-right: 20px;
+  right: -80px;
+  height: 48px;
+  font-size: 40px;
+  color: #ffeba7;
+  -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+  cursor: pointer;
+}
