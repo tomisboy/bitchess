@@ -44,7 +44,7 @@ app.get('/homepage', (req, res) => {
     res.render('homepage.ejs')
 })
 
-app.get('/create', /*checkAuthenticated,*/ (req, res) => {
+app.get('/create', checkAuthenticated, (req, res) => {
     res.render('create.ejs')
 })
 
