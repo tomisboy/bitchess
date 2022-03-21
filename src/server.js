@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
     res.render('login.ejs')
 })
 
-app.get('/homepage', (req, res) => {
+app.get('/homepage', checkAuthenticated,(req, res) => {
     res.render('homepage.ejs')
 })
 
