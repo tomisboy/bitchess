@@ -44,7 +44,7 @@ app.get('/homepage', (req, res) => {
     res.render('homepage.ejs')
 })
 
-app.get('/create', checkAuthenticated, (req, res) => {
+app.get('/create', /*checkAuthenticated,*/ (req, res) => {
     res.render('create.ejs')
 })
 
@@ -54,14 +54,6 @@ app.get('/join', checkAuthenticated, (req, res) => {
 
 app.get('/statistics', checkAuthenticated, (req, res) => {
     res.render('statistics.ejs')
-})
-
-app.get('/createpublic', checkAuthenticated, (req, res) => {
-    res.render('createpublic.ejs')
-})
-
-app.get('/createprivate', checkAuthenticated, (req, res) => {
-    res.render('createprivate.ejs')
 })
 
 app.get('/joinpublic', checkAuthenticated, (req, res) => {
@@ -74,6 +66,12 @@ app.get('/joinprivate', checkAuthenticated, (req, res) => {
 
 //Post-Methods
 app.post('/loginsubmit', passport.authenticate('local',{
+    successRedirect: '/homepage',
+    failureRedirect: '/',
+    failureFlash: true
+}))
+
+app.post('/creategame', passport.authenticate('local',{
     successRedirect: '/homepage',
     failureRedirect: '/',
     failureFlash: true

@@ -1,0 +1,27 @@
+.create-card {
+    width: 100%;
+    height: 100%;
+    background-color: #2a2b38;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 300%;
+    position: absolute;
+    border-radius: 6px;
+    left: 0;
+    top: 0;
+  }
+  .create-card-wrap {
+    position: relative;
+    width: 450px;
+    max-width: 100%;
+    height: 450px;
+    margin-top: 60px;
+  }
+  .create-card-wrapper {
+    width: 100%;
+    height: 100%;
+    position:absolute;    
+    top: 0;
+    left: 0;  
+  }
