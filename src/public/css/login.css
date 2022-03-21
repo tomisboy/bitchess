@@ -270,17 +270,11 @@ h6 span{
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
-
-.logo {
-	position: absolute;
-	top: 30px;
-	right: 30px;
-	display: block;
-	z-index: 100;
-	transition: all 250ms linear;
-}
 .logo img {
-	height: 40px;
+  display: block;
+	height: 60px;
 	width: auto;
-	display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 60px;
 }

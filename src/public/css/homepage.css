@@ -113,3 +113,8 @@ a:hover {
     transition: all 200ms linear;
   cursor: pointer;
 }
+.profile-icon:hover, .back-arrow:hover {
+  text-shadow: 0 0 15px rgba(255,235,167, 0.6);
+  transform: scale(1.02);
+  cursor: pointer;
+}
