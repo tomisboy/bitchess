@@ -64,6 +64,10 @@ app.get('/joinprivate', checkAuthenticated, (req, res) => {
     res.render('joinprivate.ejs')
 })
 
+app.get('/profile', checkAuthenticated, (req, res) => {
+    res.render('profile.ejs')
+})
+
 //Post-Methods
 app.post('/loginsubmit', passport.authenticate('local',{
     successRedirect: '/homepage',
