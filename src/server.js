@@ -101,9 +101,7 @@ function checkAuthenticated(req, res, next){
     if (req.isAuthenticated()){
         return next()
     }
-    //res.redirect('/')
-    //KILL THIS IDIOT
-    return next();
+    res.redirect('/')
 }
 
 function checkNotAuthenticated(req, res, next){
