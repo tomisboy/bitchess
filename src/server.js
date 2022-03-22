@@ -65,7 +65,7 @@ app.get('/joinprivate', checkAuthenticated, (req, res) => {
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
-    res.render('profile.ejs')
+    res.render('profile.ejs', { username: req.user.username })
 })
 
 //Post-Methods
@@ -75,13 +75,11 @@ app.post('/loginsubmit', passport.authenticate('local',{
     failureFlash: true
 }))
 
-app.post('/creategame', passport.authenticate('local',{
-    successRedirect: '/homepage',
-    failureRedirect: '/',
-    failureFlash: true
-}))
+app.post('/creategame', async (req, res) => {
+    console.log('/creategame request')
+})
 
-app.post('/registersubmit', async (req,res) => {
+app.post('/registersubmit', async (req, res) =>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
@@ -93,6 +91,40 @@ app.post('/registersubmit', async (req,res) => {
         res.redirect('/')
     } catch (e){    
         res.redirect('/')
+    }
+})
+
+app.post('/deleteuser', async (req, res) =>{
+    try{
+        var userid = req.user.id
+
+        req.logOut()
+        db.deleteUser(userid);
+
+        res.redirect('/')
+    } catch (e){    
+        res.redirect('/')
+    }
+})
+
+app.post('/changecredentials', async (req, res) => {
+    try{
+        if(req.body.newpassword != ''){
+            db.updateUser( req.user.id, null, await bcrypt.hash(req.body.newpassword, 10), null);
+        }
+
+        if(req.body.newusername != ''){
+            db.updateUser( req.user.id, req.body.newusername, null, null);
+        }
+
+        if(req.body.newemail != ''){
+            db.updateUser( req.user.id, null, null, req.body.newemail);
+        }
+
+        req.logOut()
+        res.redirect('/')
+    } catch (e){    
+        console.log(e)   
     }
 })
 

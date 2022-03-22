@@ -11,6 +11,7 @@ var dbconfig = {
 }
 
 module.exports = {
+  //gets user by email
   getUser: function(email, callback){
     try{
       var con = mysql.createConnection(dbconfig);
@@ -24,6 +25,7 @@ module.exports = {
             callback(null);      
     }  
   },
+  //gets user by id
   getUserById: function(id, callback){
     try{
         var con = mysql.createConnection(dbconfig);
@@ -37,6 +39,7 @@ module.exports = {
             callback(null);      
     }  
   },
+  //sets new user
   setUser: function(username, password, email){  
     try{
       var con = mysql.createConnection(dbconfig);
@@ -44,6 +47,45 @@ module.exports = {
       con.query("INSERT INTO users (username, password, email) VALUES (?,?,?)", [username, password, email], function (err, result){
           if (err) throw err;
       })
+      con.end()
+    } catch (e) {
+        console.log(e)
+    }
+  },
+  //updates user by id
+  updateUser: function(id, username, password, email){  
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+
+      if(username != null){
+        con.query("UPDATE users SET username = ? WHERE id = ?", [username, id], function (err, result){
+          if (err) throw err;
+        })
+      }
+      else if(password != null){
+        con.query("UPDATE users SET password = ? WHERE id = ?", [password, id], function (err, result){
+          if (err) throw err;
+        })
+      }
+      else if(email != null){
+        con.query("UPDATE users SET email = ? WHERE id = ?", [email, id], function (err, result){
+          if (err) throw err;
+        })
+      }
+      con.end()
+    } catch (e) {
+        console.log(e)
+    }
+  },
+  deleteUser: function(id){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("DELETE FROM users WHERE id = ?", [id], function (err, result){
+        if (err) throw err;
+      })
+
       con.end()
     } catch (e) {
         console.log(e)
