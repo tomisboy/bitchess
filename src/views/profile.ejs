@@ -29,10 +29,10 @@
                             <i class="card-icon bi bi-gear-fill"></i>
                             <div class="center-wrap">
                                 <div class="section text-center">
-                                    <h4 class="mb-4 pb-3">Configurate your user</h4>
-                                    <h5 class="pb-3 ">User: XYZ?</h5>
+                                    <h4 class="mb-4 pb-3">Configurate</h4>
+                                    <h5 class="pb-3 ">User: <%= username %> </h5>
                                     <!--Create a game form-->
-                                    <form action="/changeusersettings" method="POST">
+                                    <form action="/changecredentials" method="POST">
                                         <div class="form-group">
                                             <input type="text" name="newusername" class="form-style" placeholder="new username" id="newusername" autocomplete="off">
                                             <i class="input-icon bi bi-person-fill"></i>
@@ -50,6 +50,10 @@
                                         <button type="submit" href="#" class="btn mt-4">Change!</button>
                                         <% if(messages.error) {messages.error} %>
                                     </form>
+
+                                    <form action="/deleteuser" method="POST">
+                                        <button type="submit" href="#" class="btn mt-4">Delete!</button>
+                                    </form> 
                                 </div>
                             </div>
                         </div>
