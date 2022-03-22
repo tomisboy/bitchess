@@ -11,14 +11,10 @@
     </head>
 
     <body>
-        <div class="profilecontainer">
-            <i class="profile-icon bi-person-circle" onclick="location.href='homepage'"></i>
-        </div>
-        <a class="logo">
-            <img src="/img/bit-Chess.png" onclick="location.href='homepage'" alt="bit-Chess Logo">
-        </a>
+        <%- include('./footer.ejs') %>
+        <%- include('./header.ejs') %>
         <div>
-            <i class="input-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
+            <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
         </div>
         <!--Creating Flex Grid-->
         <div class="flex-parent-element">
@@ -28,7 +24,7 @@
                 <div class="card-wrap">
                     <div class="card-wrapper">
                         <div class="card" onclick="location.href='joinpublic'">
-                            <i class="input-icon bi bi-wifi"></i>
+                            <i class="card-icon bi bi-wifi"></i>
                             <div class="center-wrap">
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Join Public game</h4>
@@ -45,7 +41,7 @@
                 <div class="card-wrap">
                     <div class="card-wrapper">
                         <div class="card" onclick="location.href='joinprivate'">
-                            <i class="input-icon bi bi-lock-fill"></i>
+                            <i class="card-icon bi bi-lock-fill"></i>
                             <div class="center-wrap">
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Join Private game</h4>
