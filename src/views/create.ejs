@@ -13,12 +13,7 @@
     </head>
 
     <body>
-        <div class="profilecontainer">
-            <i class="profile-icon bi-person-circle" onclick="location.href='homepage'"></i>
-        </div>
-        <a class="logo">
-            <img src="/img/bit-Chess.png" onclick="location.href='homepage'" alt="bit-Chess Logo">
-        </a>
+        <%- include('./header.ejs') %>
         <div>
             <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
         </div>
@@ -54,5 +49,6 @@
                 </div>
             </div>
         </div>
+        <%- include('./footer.ejs') %>
     </body>
 </html>
