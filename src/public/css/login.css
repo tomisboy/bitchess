@@ -41,9 +41,6 @@ h6 span{
   width: 100%;
   display: block;
 }
-.full-height{
-  min-height: 100vh;
-}
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked){
   position: absolute;
