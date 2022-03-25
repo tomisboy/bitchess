@@ -4,6 +4,7 @@
   services:
     nodetest:
       image: bitchess/bitchess-node:latest
+      restart: always
       container_name: bitchess-node
       labels:
         - "traefik.enable=true"
@@ -15,8 +16,7 @@
       networks:
         - traefik_proxy
         
-       restart:
-        - always
+
   networks:
     traefik_proxy:
       external:
