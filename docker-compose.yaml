@@ -14,6 +14,9 @@
 
       networks:
         - traefik_proxy
+        
+       restart:
+        - always
   networks:
     traefik_proxy:
       external:
