@@ -83,11 +83,14 @@ app.post('/registersubmit', async (req, res) =>{
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
-        db.setUser(
-            req.body.username,
-            hashedPassword,
-            req.body.email
-        );
+        db.checkUserByNameAndMail(req.body.username, req.body.email, hashedPassword, function(data, name, email, pw){
+            if (data != null) return
+            db.setUser(
+                name,
+                pw,
+                email
+            );
+        })
         res.redirect('/')
     } catch (e){    
         res.redirect('/')
@@ -109,17 +112,7 @@ app.post('/deleteuser', async (req, res) =>{
 
 app.post('/changecredentials', async (req, res) => {
     try{
-        if(req.body.newpassword != ''){
-            db.updateUser( req.user.id, null, await bcrypt.hash(req.body.newpassword, 10), null);
-        }
-
-        if(req.body.newusername != ''){
-            db.updateUser( req.user.id, req.body.newusername, null, null);
-        }
-
-        if(req.body.newemail != ''){
-            db.updateUser( req.user.id, null, null, req.body.newemail);
-        }
+        await changeCredentials(req, res)
 
         req.logOut()
         res.redirect('/')
@@ -145,4 +138,24 @@ function checkNotAuthenticated(req, res, next){
         return res.redirect('/')
     }
     next()
+}
+
+async function changeCredentials(req, res){
+    if(req.body.newpassword != ''){
+        db.updateUser( req.user.id, null, await bcrypt.hash(req.body.newpassword, 10), null);
+    }
+
+    if(req.body.newusername != ''){
+        db.checkUserByName(req.body.newusername, req.user.id, function(data, id, name){
+            if (data != null) return
+            db.updateUser(id, name, null, null);
+        })
+    }
+
+    if(req.body.newemail != ''){
+        db.ckeckUserByMail(req.body.newemail, req.user.id, function(data, id, mail){
+            if (data != null) return
+            db.updateUser( id, null, null, mail);
+        })
+    }
 }

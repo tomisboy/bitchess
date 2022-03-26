@@ -4,7 +4,7 @@ const db = require('./database.js')
 
 function initialize(passport){
     const authenticateUser = async (email, password, done) => {
-        db.getUser(email, async (user) => {
+        db.getUserByMail(email, async (user) => {
             
             if(user == null){
                 return done(null, false, {message: 'Wrong username or password.'})
