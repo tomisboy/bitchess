@@ -13,17 +13,17 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
         <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>
+        <script src="lib/stockfish/stockfish.js"></script>
         <script src="js/botgame.js" language="javascript"></script>
     </head>
 
     <body>
         <%- include('./header.ejs') %>
-        <div>
-            <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
-        </div>
-        
-        <div id="chessBoard" style="width:700px;padding-top:50px; margin:auto;"></div>
 
+        <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
+        
+        <div id="chessBoard" style="width:700px;"></div>
+        
         <%- include('./footer.ejs') %>
     </body>
 </html>

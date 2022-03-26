@@ -10,6 +10,7 @@ var gameid = null;
 var playerid = null;
 var moves = "";
 var chess = new Chess();
+var stockfish = Stockfish;
 
 const boardConfig = {
     draggable: true,
