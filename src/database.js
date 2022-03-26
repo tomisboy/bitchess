@@ -44,7 +44,7 @@ module.exports = {
     try{
       var con = mysql.createConnection(dbconfig);
       con.connect()
-      con.query("INSERT INTO users (username, password, email) VALUES (?,?,?)", [username, password, email], function (err, result){
+      con.query("INSERT INTO users (username, password, email, rating) VALUES (?,?,?,?)", [username, password, email, 800], function (err, result){
           if (err) throw err;
       })
       con.end()
