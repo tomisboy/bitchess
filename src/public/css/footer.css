@@ -1,4 +1,7 @@
-  .footer-basic ul {
+.footer-basic{
+  margin-top: 50px;
+}
+.footer-basic ul {
     padding:0;
     list-style:none;
     text-align:center;

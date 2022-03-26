@@ -9,6 +9,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `botgames`
+--
+
+CREATE TABLE `botgames` (
+  `id` int(11) NOT NULL,
+  `playerid` int(11) NOT NULL,
+  `board` text COLLATE utf8_bin NOT NULL,
+  `moves` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `games`
 --
 
@@ -55,6 +68,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `botgames`
+--
+ALTER TABLE `botgames`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `games`
 --
 ALTER TABLE `games`
@@ -75,6 +94,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `botgames`
+--
+ALTER TABLE `botgames`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `games`
