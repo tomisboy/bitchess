@@ -13,7 +13,6 @@
     </head>
 
     <body>
-        <%- include('./footer.ejs') %>
         <%- include('./header.ejs') %>
         <div>
             <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
@@ -23,7 +22,7 @@
             <!--Creating Flex Grid Element-->
             <div class="flex-child-element">
                 <!--Create new game card-->
-                <div class="create-card-wrap">
+                <div class="create-card-wrap" style="height: 600px;">
                     <div class="create-card-wrapper">
                         <div class="create-card">
                             <i class="card-icon bi bi-gear-fill"></i>
@@ -50,9 +49,9 @@
                                         <button type="submit" href="#" class="btn mt-4">Change!</button>
                                         <% if(messages.error) {messages.error} %>
                                     </form>
-
+                                    <p class="mb-0 mt-4 text-center">or delete your user</p>
                                     <form action="/deleteuser" method="POST">
-                                        <button type="submit" href="#" class="btn mt-4">Delete!</button>
+                                        <button type="submit" href="#" class="deletebtn mt-4">!Delete!</button>
                                     </form> 
                                 </div>
                             </div>
@@ -61,5 +60,6 @@
                 </div>
             </div>
         </div>
+        <%- include('./footer.ejs') %>
     </body>
 </html>
