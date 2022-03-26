@@ -56,10 +56,7 @@ app.get('/join', checkAuthenticated, (req, res) => {
 app.get('/statistics', checkAuthenticated, (req, res) => {
     res.render('statistics.ejs', { username: req.user.username })
 })
-app.get('/createbotgame', checkAuthenticated, (req, res) => {
-    res.render('createbotgame.ejs', { username: req.user.username })
-    //res.redirect('/botgame')
-})
+app.get('/createbotgame', checkAuthenticated, checkBotgame)
 
 app.get('/botgame', checkAuthenticated, (req, res) => {
     res.render('botgame.ejs', { username: req.user.username })
@@ -123,6 +120,33 @@ app.post('/deleteuser', async (req, res) =>{
     }
 })
 
+app.post('/createbotgame', async (req, res) =>{
+    try{
+        db.createBotgame(req.user.id, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "")
+        res.redirect('/botgame')
+    } catch (e){    
+        res.redirect('/homepage')
+    }
+})
+
+app.post('/getbotgame', async (req, res) => {
+    try{
+        db.getBotgame(req.user.id, function(data){
+            
+        })
+    } catch (e){    
+        res.redirect('/homepage')
+    }
+})
+
+app.post('/updatebotgame', async (req, res) => {
+    try{
+        db.updateBotgame(req.body.gameid, req.body.board, req.body.moves)
+    } catch (e){    
+        res.redirect('/homepage')
+    }
+})
+
 app.post('/changecredentials', async (req, res) => {
     try{
         await changeCredentials(req, res)
@@ -151,6 +175,16 @@ function checkNotAuthenticated(req, res, next){
         return res.redirect('/')
     }
     next()
+}
+
+function checkBotgame(req, res){
+    db.getBotgame(req.user.id, function(data){
+        if (data != null){
+            res.redirect('/botgame')
+        }
+        else
+            res.render('createbotgame.ejs', { username: req.user.username })
+    })    
 }
 
 async function changeCredentials(req, res){

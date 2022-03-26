@@ -11,6 +11,9 @@ var dbconfig = {
 }
 
 module.exports = {
+  // -----------------------------
+  // USERS
+  // -----------------------------
   //gets user by email
   getUserByMail: function(email, callback){
     try{
@@ -146,5 +149,46 @@ module.exports = {
     } catch (e) {
         console.log(e)
     }
-  }
+  },
+  // -----------------------------
+  // BOTGAMES
+  // -----------------------------
+  createBotgame: function(playerid, board, moves){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("INSERT INTO botgames (playerid, board, moves) VALUES (?,?,?)", [playerid, board, moves], function (err, result){
+        if (err) throw err;
+      })
+
+      con.end()
+    } catch (e) {
+        console.log(e)
+    }
+  },
+  updateBotgame: function(gameid, board, moves){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("UPDATE botgames SET board = ?, moves = ? WHERE id = ?", [board, moves, gameid], function (err, result){
+        if (err) throw err;
+      })
+      con.end()
+    } catch (e) {
+        console.log(e)
+    }
+  },
+  getBotgame: function(playerid, callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT * FROM botgames WHERE playerid = ?", [playerid], function (err, result){
+        if (err) throw err;
+        callback(result[0])
+      })
+      con.end()
+    } catch (e) {
+        callback(null)
+    }
+  },
 }
