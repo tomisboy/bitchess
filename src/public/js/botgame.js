@@ -2,7 +2,6 @@ var board = null;
 
 $(document).ready(function(){
     board = Chessboard('chessBoard', boardConfig);
-
 })
 
 var gameid = 1;
