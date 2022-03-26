@@ -12,7 +12,7 @@ var dbconfig = {
 
 module.exports = {
   //gets user by email
-  getUser: function(email, callback){
+  getUserByMail: function(email, callback){
     try{
       var con = mysql.createConnection(dbconfig);
       con.connect()
@@ -23,6 +23,62 @@ module.exports = {
       con.end()
     } catch {          
             callback(null);      
+    }  
+  },
+  //gets user by mail
+  getUserByName: function(name, callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT * FROM users WHERE username = ?", [name], function (err, result) {
+        if (err) throw err;
+        callback(result[0])        
+      })
+      con.end()
+    } catch (e) {  
+        callback(null);      
+    }  
+  },
+  //checks if email exists - gets id from session user
+  checkUserByMail: function(email, id, callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT * FROM users WHERE email = ?", [email], function (err, result) {
+        if (err) throw err; 
+        callback(result[0], id, email)        
+      })
+      con.end()
+    } catch {          
+            callback(null, id, email);      
+    }  
+  },
+  //checks if name exists - gets id from session user
+  checkUserByName: function(name, id, callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT * FROM users WHERE username = ?", [name], function (err, result) {
+        if (err) throw err;
+        callback(result[0], id, name)        
+      })
+      con.end()
+    } catch (e) {  
+        callback(null, id, name);      
+    }  
+  },
+  //checks if name or mail exists - gets id from session user
+  checkUserByNameAndMail: function(name, email, pw, callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT * FROM users WHERE username = ? OR email= ?", [name, email], function (err, result) {
+        if (err) throw err;
+        callback(result[0], name, email, pw)        
+      })
+      con.end()
+    } catch (e) {  
+        callback(null, name, email, pw);
     }  
   },
   //gets user by id
