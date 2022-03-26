@@ -11,10 +11,10 @@
     </head>
     <body>
         <%- include('./header.ejs') %>
-        <!--Creating Flex Grid-->
-        <div class="flex-parent-element">
-            <!--Creating Flex Grid Element-->
-            <div class="flex-child-element">
+        <!--Creating new flexbox-->
+        <div class="flex-container">
+            <!--creating new flexitem-->
+            <div class="flex-item">
                 <!--Create new game card-->
                 <div class="card-wrap">
                     <div class="card-wrapper">
@@ -30,10 +30,10 @@
                     </div>
                 </div>
             </div>
-            <!--Creating Flex Grid Element-->
-            <div class="flex-child-element">
-                <!--Join game card-->
-                <div class="card-wrap">
+            <!--creating new flexitem-->
+            <div class="flex-item">
+                 <!--Join game card-->
+                 <div class="card-wrap">
                     <div class="card-wrapper">
                         <div class="card" onclick="location.href='join'">
                             <i class="card-icon bi bi-play-fill"></i>
@@ -47,8 +47,25 @@
                     </div>
                 </div>
             </div>
-            <!--Creating Flex Grid Element-->
-            <div class="flex-child-element">
+            <!--creating new flexitem-->
+            <div class="flex-item">
+                <!--botgame card-->
+                <div class="card-wrap">
+                    <div class="card-wrapper">
+                        <div class="card" onclick="location.href='createbotgame'">
+                            <i class="card-icon bi bi-cpu-fill"></i>
+                            <div class="center-wrap">
+                                <div class="section text-center">
+                                    <h4 class="mb-4 pb-3">Create Bot-Game</h4>
+                                    <p class="mb-0 mt-4 text-center">Create or play your already running game against a computer. You can just play one bot-game at time!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--creating new flexitem-->
+            <div class="flex-item">
                 <!--Statistics and more card-->
                 <div class="card-wrap">
                     <div class="card-wrapper">
@@ -57,7 +74,24 @@
                             <div class="center-wrap">
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Statistics & More</h4>
-                                    <p class="mb-0 mt-4 text-center">Have a look at our statisctics, the leader board an many more</p>
+                                    <p class="mb-0 mt-4 text-center">Have a look at our statisctics and many more</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--creating new flexitem-->
+            <div class="flex-item">
+                <!--Leaderboard card-->
+                <div class="card-wrap">
+                    <div class="card-wrapper">
+                        <div class="card" onclick="location.href='leaderboard'">
+                            <i class="card-icon bi bi-trophy-fill"></i>
+                            <div class="center-wrap">
+                                <div class="section text-center">
+                                    <h4 class="mb-4 pb-3">Leaderboard</h4>
+                                    <p class="mb-0 mt-4 text-center">Check out the leaderboard of bit-Chess</p>
                                 </div>
                             </div>
                         </div>

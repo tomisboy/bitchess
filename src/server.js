@@ -55,6 +55,18 @@ app.get('/join', checkAuthenticated, (req, res) => {
 app.get('/statistics', checkAuthenticated, (req, res) => {
     res.render('statistics.ejs', { username: req.user.username })
 })
+app.get('/createbotgame', checkAuthenticated, (req, res) => {
+    res.render('createbotgame.ejs', { username: req.user.username })
+    //res.redirect('/botgame')
+})
+
+app.get('/botgame', checkAuthenticated, (req, res) => {
+    res.render('botgame.ejs', { username: req.user.username })
+})
+
+app.get('/leaderboard', checkAuthenticated, (req, res) => {
+    res.render('leaderboard.ejs', { username: req.user.username })
+})
 
 app.get('/joinpublic', checkAuthenticated, (req, res) => {
     res.render('joinpublic.ejs', { username: req.user.username })
