@@ -1,0 +1,14 @@
+  .deletebtn{
+    background-color: transparent;
+    border: 0px;
+    box-shadow: 0px;
+    color: #cc0000;
+  }
+  .delete-icon{
+      font-size: 24px;
+  }
+  .delete-icon:hover{
+    text-shadow: 0 0 15px rgba(204, 0, 0, 0.6);
+    transform: scale(1.02);
+    cursor: pointer;
+  }

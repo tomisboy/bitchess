@@ -228,7 +228,7 @@ h6 span{
     transition: all 200ms linear;
 }
 
-.btn, .deletebtn{  
+.btn{  
   border-radius: 4px;
   height: 44px;
   font-size: 13px;
@@ -264,17 +264,6 @@ h6 span{
 }
 .btn:hover{  
   background-color: #642B5E;
-  color: #ffeba7;
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-}
-.deletebtn:active,
-.deletebtn:focus{  
-  background-color: #cc0000;
-  color: #ffeba7;
-  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
-}
-.deletebtn:hover{  
-  background-color: #cc0000;
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }

@@ -8,6 +8,7 @@
         <link href="css/homepage.css" rel="stylesheet">
         <link href="css/create.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
+        <link href="css/profile.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
@@ -22,7 +23,7 @@
             <!--Creating Flex Grid Element-->
             <div class="flex-child-element">
                 <!--Create new game card-->
-                <div class="create-card-wrap" style="height: 600px;">
+                <div class="create-card-wrap" style="height: 550px;">
                     <div class="create-card-wrapper">
                         <div class="create-card">
                             <i class="card-icon bi bi-gear-fill"></i>
@@ -49,10 +50,12 @@
                                         <button type="submit" href="#" class="btn mt-4">Change!</button>
                                         <% if(messages.error) {messages.error} %>
                                     </form>
-                                    <p class="mb-0 mt-4 text-center">or delete your user</p>
+                                    <br>
                                     <form action="/deleteuser" method="POST">
-                                        <button type="submit" href="#" class="deletebtn mt-4">!Delete!</button>
-                                    </form> 
+                                        <button class="deletebtn">
+                                            <i class="delete-icon bi bi-trash-fill" data-toggle="tooltip" data-placement="bottom" title="Delete your user"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
