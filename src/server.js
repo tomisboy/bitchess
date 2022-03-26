@@ -41,27 +41,39 @@ app.get('/', (req, res) => {
 })
 
 app.get('/homepage', checkAuthenticated,(req, res) => {
-    res.render('homepage.ejs')
+    res.render('homepage.ejs', { username: req.user.username })
 })
 
 app.get('/create', checkAuthenticated, (req, res) => {
-    res.render('create.ejs')
+    res.render('create.ejs', { username: req.user.username })
 })
 
 app.get('/join', checkAuthenticated, (req, res) => {
-    res.render('join.ejs')
+    res.render('join.ejs', { username: req.user.username })
 })
 
 app.get('/statistics', checkAuthenticated, (req, res) => {
-    res.render('statistics.ejs')
+    res.render('statistics.ejs', { username: req.user.username })
+})
+app.get('/createbotgame', checkAuthenticated, (req, res) => {
+    res.render('createbotgame.ejs', { username: req.user.username })
+    //res.redirect('/botgame')
+})
+
+app.get('/botgame', checkAuthenticated, (req, res) => {
+    res.render('botgame.ejs', { username: req.user.username })
+})
+
+app.get('/leaderboard', checkAuthenticated, (req, res) => {
+    res.render('leaderboard.ejs', { username: req.user.username })
 })
 
 app.get('/joinpublic', checkAuthenticated, (req, res) => {
-    res.render('joinpublic.ejs')
+    res.render('joinpublic.ejs', { username: req.user.username })
 })
 
 app.get('/joinprivate', checkAuthenticated, (req, res) => {
-    res.render('joinprivate.ejs')
+    res.render('joinprivate.ejs', { username: req.user.username })
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {

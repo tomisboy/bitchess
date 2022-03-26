@@ -57,17 +57,6 @@ a:hover {
     left: 0;
     transform: translate3d(0, -50%, 35px) perspective(100px);
   }
-  .flex-parent-element {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  
-  .flex-child-element {
-    display: flex;
-    margin: 30px;
-  }
   .card-icon {
     position: absolute;
     top: 0;
@@ -85,3 +74,17 @@ a:hover {
     width: 100%;
     display: block;
   }
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 30px 30px;
+  margin-bottom: 50px;
+}
+.flex-item{
+  flex-basis: auto;
+  align-self: auto;
+
+}
