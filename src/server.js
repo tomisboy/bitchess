@@ -28,9 +28,9 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.use('/css', express.static(__dirname + 'public/css'))
-app.use('/scss', express.static(__dirname + 'public/scss'))
 app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
+app.use('/html', express.static(__dirname + 'public/html'))
 app.use('/lib', express.static(__dirname + 'public/lib'))
 
 //Open Port
@@ -172,3 +172,5 @@ async function changeCredentials(req, res){
         })
     }
 }
+
+module.exports = app;

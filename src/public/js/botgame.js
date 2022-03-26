@@ -1,6 +1,10 @@
+$(document).ready(function(){
+    board = Chessboard('chessBoard', boardConfig);
+})
+
 var board = null;
 var chess = new Chess();
- 
+
 const boardConfig = {
     draggable: true,
     dropOffBoard: 'trash',
@@ -8,9 +12,7 @@ const boardConfig = {
     onDrop: onDrop,
 }
 var isMachinePlayer = false;
- 
-board = Chessboard('chessBoard', boardConfig);
- 
+
 function onDragStart (source, piece, position, orientation) {
 }
  
