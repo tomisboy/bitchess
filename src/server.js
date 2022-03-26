@@ -132,7 +132,7 @@ app.post('/createbotgame', async (req, res) =>{
 app.post('/getbotgame', async (req, res) => {
     try{
         db.getBotgame(req.user.id, function(data){
-            
+            res.send(data)
         })
     } catch (e){    
         res.redirect('/homepage')

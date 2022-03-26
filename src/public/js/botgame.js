@@ -1,10 +1,13 @@
 var board = null;
 
-$(document).ready(function(){
-    board = Chessboard('chessBoard', boardConfig);
+$(document).ready(function (){
+    $.post("/getbotgame", function(data){
+        setGame(data)
+    })
 })
 
-var gameid = 1;
+var gameid = null;
+var playerid = null;
 var moves = "";
 var chess = new Chess();
 
@@ -24,6 +27,16 @@ function onDragStart(source, piece, position, orientation) {
 }
  
 function onDrop (source, target, piece, newPos, oldPos, orientation){
-    var message = {'gameid' : gameid, 'board' : Chessboard.objToFen(newPos), 'moves' : moves };
+    var message = {'gameid' : gameid, 'board' : Chessboard.objToFen(newPos), 'moves' : moves }
     $.post("/updatebotgame", message)
+}
+
+function setGame(game){
+    console.log(game)
+
+    boardConfig.position = game.board
+    gameid = game.id
+    playerid = game.playerid
+
+    board = Chessboard('chessBoard', boardConfig);
 }
