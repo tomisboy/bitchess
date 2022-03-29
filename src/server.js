@@ -147,6 +147,16 @@ app.post('/updatebotgame', async (req, res) => {
     }
 })
 
+app.post('/gettopplayer', async (req, res) => {
+    try{
+        db.getTopPlayer(function(data){
+            res.send(data)
+        })
+    } catch (e){    
+        res.redirect('/homepage')
+    }
+})
+
 app.post('/changecredentials', async (req, res) => {
     try{
         await changeCredentials(req, res)

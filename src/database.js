@@ -191,4 +191,20 @@ module.exports = {
         callback(null)
     }
   },
+  // -----------------------------
+  // STATISTICS
+  // -----------------------------
+  getTopPlayer: function(callback){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("SELECT username, rating FROM users ORDER BY rating DESC LIMIT 100", function (err, result){
+        if (err) throw err;
+        callback(result)
+      })
+      con.end()
+    } catch (e) {
+        callback(null)
+    }
+  },
 }
