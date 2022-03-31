@@ -6,12 +6,18 @@ Currently we are using a Linux Server from [hetzner](https://www.hetzner.com/) w
 This server is also the Github Runner for [GitHub Actions](https://github.com/tomisboy/bitchess/blob/main/.github/info.MD)
 The application itself is written in Node.js and deployed containerized via Docker.
 
+
+### Overview 
+![image](https://user-images.githubusercontent.com/15163807/160455106-6aa92f72-20cc-4ce2-97fe-bc0ff6520bf9.png)
+
+
 ### TLS 
 To ensure TLS encryption, the reverse proxy Traefik is used, which is also provided via Docker.
 The provision of a TLS certificate from Let's Encrypt of the FQDN (bitchess.ddns.net) runs via the ACME protocol and is renewed automatically. 
 
 ### Database
 The database used is maria-db, which also runs locally on the Linux server as a Docker container.
+
 
 
 ## How to ensure that no secrets end up in Github in plain text:
