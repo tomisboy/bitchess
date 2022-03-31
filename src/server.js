@@ -210,7 +210,7 @@ async function changeCredentials(req, res){
     }
 
     if(req.body.newemail != ''){
-        db.ckeckUserByMail(req.body.newemail, req.user.id, function(data, id, mail){
+        db.checkUserByMail(req.body.newemail, req.user.id, function(data, id, mail){
             if (data != null) return
             db.updateUser( id, null, null, mail);
         })
