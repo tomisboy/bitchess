@@ -9,7 +9,7 @@
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.bitchess.entrypoints=websecure"
-        - "traefik.http.routers.bitchess.rule=Host(`bitchess.ddns.net`)"
+        - "traefik.http.routers.bitchess.rule=Host(`bit-chess.de`)"
         - "traefik.http.routers.bitchess.tls=true"
         - "traefik.http.routers.bitchess.tls.certresolver=default"
 
