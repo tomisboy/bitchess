@@ -158,6 +158,16 @@ app.post('/changecredentials', async (req, res) => {
     }
 })
 
+app.post('/gettopplayer', async (req, res) => {
+    try{
+        db.getTopPlayer(function(data){
+            res.send(data)
+        })
+    } catch (e){    
+        res.redirect('/homepage')
+    }
+})
+
 app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/')
