@@ -3,7 +3,8 @@ var chess = new Chess();
 
 const boardConfig = {
     draggable: true,
-    dropOffBoard: 'trash',
+    dropOffBoard: 'snapback',
+    showNotation: true,
     onDragStart: onDragStart,
     onDrop: onDrop,
 }
