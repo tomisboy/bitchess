@@ -21,7 +21,7 @@ providers:
 
 log:
   filePath: "/etc/traefik/traefik.log"
-  level: "DEBUG"
+  level: "INFO"
 
 accessLog: 
   filePath: "/etc/traefik/access.log"

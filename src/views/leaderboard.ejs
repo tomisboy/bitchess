@@ -6,7 +6,11 @@
         <title>bit-Chess</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="css/homepage.css" rel="stylesheet">
+        <link href="css/create.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="js/leaderboard.js" language="javascript"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
@@ -15,7 +19,38 @@
         <div>
             <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
         </div>
-        LEADERBOARD
+        <!--Creating new flexbox-->
+        <div class="flex-container">
+            <!--creating new flexitem-->
+            <div class="flex-item">
+                <!--Create new game card-->
+                <div class="create-card-wrap" style="width: 600px;">
+                    <div class="create-card-wrapper">
+                        <div class="create-card">
+                            <i class="card-icon bi bi-trophy-fill"></i>
+                            <div class="center-wrap">
+                                <div class="section text-center">
+                                    <h4 class="mb-4 pb-3">Top 100 player on bit-Chess</h4>
+                                    <div class="scrollDiv">
+                                        <table class="leaderboardTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Username</th>
+                                                    <th>Rating</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="leaderboardList" class="leaderboardTable">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%- include('./footer.ejs') %>
     </body>
 </html>
