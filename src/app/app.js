@@ -78,7 +78,6 @@ app.get('/profile', checkAuthenticated, (req, res) => {
     res.render('profile.ejs', { username: req.user.username })
 })
 
-//Post-Methods
 app.post('/loginsubmit', passport.authenticate('local',{
     successRedirect: '/homepage',
     failureRedirect: '/',
