@@ -8,12 +8,12 @@ The application itself is written in Node.js and deployed containerized via Dock
 
 
 ### Overview 
-![image](https://user-images.githubusercontent.com/15163807/160455106-6aa92f72-20cc-4ce2-97fe-bc0ff6520bf9.png)
+![image](https://user-images.githubusercontent.com/15163807/162918234-db5700db-0bbe-4766-8225-70846457cfa9.png)
 
 
 ### TLS 
 To ensure TLS encryption, the reverse proxy Traefik is used, which is also provided via Docker.
-The provision of a TLS certificate from Let's Encrypt of the FQDN (bitchess.ddns.net) runs via the ACME protocol and is renewed automatically. 
+The provision of a TLS certificate from Let's Encrypt of the FQDN (https://bit-chess.de) runs via the ACME protocol and is renewed automatically. 
 
 ### Database
 The database used is maria-db, which also runs locally on the Linux server as a Docker container.
