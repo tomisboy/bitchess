@@ -85,7 +85,7 @@ app.post('/loginsubmit', passport.authenticate('local',{
 }))
 
 app.post('/creategame', async (req, res) => {
-    console.log('/creategame request')
+    res.render('chessgame.ejs', { username: req.user.username })
 })
 
 app.post('/registersubmit', async (req, res) =>{

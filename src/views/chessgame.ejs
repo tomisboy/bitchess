@@ -15,15 +15,17 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
         <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>
 
+        <script src="/js/socket.io.js"></script>
+
+        <script>
+            const socket = io()
+        </script>
+
         <script src="/js/chessgame.js"></script>
         <script src="/js/socketClient.js"></script>
     </head>
 
     <body>
-        <script>
-            const socket = io()
-        </script>
-
         <%- include('./header.ejs') %>
         
         <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
