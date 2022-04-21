@@ -33,9 +33,6 @@ app.use('/img', express.static(__dirname + 'public/img'))
 app.use('/html', express.static(__dirname + 'public/html'))
 app.use('/lib', express.static(__dirname + 'public/lib'))
 
-//Open Port
-app.listen(3000)
-
 //Routing Targets
 app.get('/', (req, res) => {
     res.render('login.ejs')

@@ -1,11 +1,14 @@
 const app = require('./app/app')
-const http = require('http').createServer(app);
-const socketSever = require('./app/socketServer.js')
-const io = require('socket.io')(http)
+const http = require('http')
+const socket = require('socket.io')
 
-socketSever(io)
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 443
 
-http.listen(PORT, () => {
-    console.log('Current server runing on PORT : '+ PORT);
-});
+var server = http.createServer(app).listen(PORT, function(){
+    console.log("Express server listening on port " + PORT);
+})
+
+var io = socket(server);
+io.sockets.on('connection', function () {
+    console.log('hello world im a hot socket');
+})
