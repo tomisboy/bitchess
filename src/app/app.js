@@ -7,6 +7,7 @@ const flash = require('express-flash')
 const session = require('express-session')
 const db = require('./database.js')
 const methodOverride = require('method-override')
+const { io } = require('socket.io-client')
 
 require('dotenv').config();
 

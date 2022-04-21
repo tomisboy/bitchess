@@ -10,6 +10,14 @@
         <link href="css/login.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+        <script>
+        const socket = io();
+        </script>
+        <script src="/js/socketClient.js"></script>
+
     </head>
 
     <body>
@@ -30,7 +38,7 @@
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Create a new game</h4>
                                     <!--Create a game form-->
-                                    <form action="/creategame" method="POST">
+                                    <form id="createGameForm" action="/creategame" method="POST">
                                         <div class="form-group">
                                             <input type="text" name="roomname" class="form-style" placeholder="Gameroom name" id="roomname" autocomplete="off" required>
                                             <i class="input-icon bi bi-input-cursor-text"></i>

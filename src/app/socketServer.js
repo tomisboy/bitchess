@@ -16,14 +16,13 @@ function randomRoomId(){
 exports = module.exports = function(io){
 
     io.on('connection', (socket) => {
-        socket.on('submitName', (formData) => {
-
-            let userName = formData.name;
-            let room = randomRoomId();
+        socket.on('createGameForm', (formData) => { 
+            let roomname = formData.roomname;
+            let room = randomRoomId();         
 
             users.push({
                 id: socket.id,
-                name: userName,
+                roomname: roomname,
                 room: room
             });
 
@@ -32,6 +31,7 @@ exports = module.exports = function(io){
                 users: users,
             });
 
+            console.log(users)
         });
 
         socket.emit('existingUsers', {

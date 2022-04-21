@@ -1,12 +1,8 @@
 $(function(){
-    $(document).on('submit', '#userNameForm', function(event){
-        event.preventDefault();
-        socket.emit('submitName', {
-            name: $('#userNameInput').val(),
+    $(document).on('submit', '#createGameForm', function(event){
+        socket.emit('createGameForm', {
+            roomname: $('#roomname').val(),
         });
-        $('#userName').text('Hi '+$('#userNameInput').val());
-        $('#userNameForm').hide();
-        $('#userNameInput').val('');
     });
     socket.on('roomDetail', (roomData) => {
        // $('#onlinePlayers').html('');

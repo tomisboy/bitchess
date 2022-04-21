@@ -5,10 +5,10 @@ const socket = require('socket.io')
 const PORT = 3000
 
 var server = http.createServer(app).listen(PORT, function(){
-    console.log("Express server listening on port " + PORT);
+    console.log("Express server listening on port " + PORT)
 })
 
 var io = socket(server);
-io.sockets.on('connection', function () {
-    console.log('hello world im a hot socket');
-})
+
+const socketSever = require('./app/socketServer.js')
+socketSever(io)
