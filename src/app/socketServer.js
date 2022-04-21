@@ -17,12 +17,14 @@ exports = module.exports = function(io){
 
     io.on('connection', (socket) => {
         socket.on('createGameForm', (formData) => { 
-            let roomname = formData.roomname;
+            let roomname = formData.roomname
+            let togglemode = formData.togglemode
             let room = randomRoomId();         
 
             users.push({
                 id: socket.id,
                 roomname: roomname,
+                togglemode: togglemode,
                 room: room
             });
 

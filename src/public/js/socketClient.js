@@ -2,6 +2,7 @@ $(function(){
     $(document).on('submit', '#createGameForm', function(event){
         socket.emit('createGameForm', {
             roomname: $('#roomname').val(),
+            togglemode: ($('#togglemode').val() == 'on' ? 'public' : 'private')
         });
     });
     socket.on('roomDetail', (roomData) => {
