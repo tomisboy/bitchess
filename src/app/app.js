@@ -33,9 +33,6 @@ app.use('/img', express.static(__dirname + 'public/img'))
 app.use('/html', express.static(__dirname + 'public/html'))
 app.use('/lib', express.static(__dirname + 'public/lib'))
 
-//Open Port
-app.listen(3000)
-
 //Routing Targets
 app.get('/', (req, res) => {
     res.render('login.ejs')
@@ -78,7 +75,6 @@ app.get('/profile', checkAuthenticated, (req, res) => {
     res.render('profile.ejs', { username: req.user.username })
 })
 
-//Post-Methods
 app.post('/loginsubmit', passport.authenticate('local',{
     successRedirect: '/homepage',
     failureRedirect: '/',
@@ -86,7 +82,7 @@ app.post('/loginsubmit', passport.authenticate('local',{
 }))
 
 app.post('/creategame', async (req, res) => {
-    console.log('/creategame request')
+    res.render('chessgame.ejs', { username: req.user.username })
 })
 
 app.post('/registersubmit', async (req, res) =>{

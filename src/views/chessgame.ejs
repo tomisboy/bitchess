@@ -13,17 +13,10 @@
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
-        <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>
-
-        <script src="/js/chessgame.js"></script>
-        <script src="/js/socketClient.js"></script>
+        <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>      
     </head>
 
     <body>
-        <script>
-            const socket = io()
-        </script>
-
         <%- include('./header.ejs') %>
         
         <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
@@ -31,5 +24,13 @@
         <div id="chessBoard" style="width:700px;padding-top:50px; margin:auto;"></div>
         
         <%- include('./footer.ejs') %>
+
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+        <script>
+        const socket = io();
+        </script>
+
+        <script src="/js/chessgame.js"></script>
+        <script src="/js/socketClient.js"></script>
     </body>
 </html>

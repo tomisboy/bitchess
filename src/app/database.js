@@ -7,7 +7,7 @@ var dbconfig = {
   user:'root', 
   password: process.env.DB_PASSWORD,
   database: 'bitchess',
-  connectionLimit: 5
+  connectionLimit: 10000
 }
 
 module.exports = {

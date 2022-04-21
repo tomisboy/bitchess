@@ -1,4 +1,5 @@
 const users = [];
+
 function randomRoomId(){
     let roomId = '';
     let length = 12;
@@ -11,6 +12,7 @@ function randomRoomId(){
     return roomId;
 
 }
+
 exports = module.exports = function(io){
 
     io.on('connection', (socket) => {
@@ -25,8 +27,6 @@ exports = module.exports = function(io){
                 room: room
             });
 
-           // console.log(users);
-
             socket.join(room);
             socket.broadcast.emit("roomDetail", {
                 users: users,
@@ -40,7 +40,6 @@ exports = module.exports = function(io){
         });
 
         socket.on('sendJoinRequest', (requestData) => {
-            //console.log(requestData.room);
             let user = users.filter(user=>user.id == socket.id)[0];
             socket.broadcast.to(requestData.room).emit('joinRequestRecieved', {
                 id: user.id,
@@ -96,5 +95,4 @@ exports = module.exports = function(io){
             }
         });
     });
-
 }
