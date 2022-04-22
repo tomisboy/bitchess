@@ -35,7 +35,7 @@ exports = module.exports = function(io){
 
             console.log(users)
         });
-
+        /*
         socket.emit('existingUsers', {
             users:users,
             currentUserId: socket.id
@@ -87,7 +87,7 @@ exports = module.exports = function(io){
         socket.on('gameWon', (requestData) => {
             socket.broadcast.to(requestData.room).emit('oppntWon');
         });
-        
+        */
         socket.on('disconnect', () => {
             for(i = 0; i< users.length; i++){
                 if(users[i].id == socket.id){
@@ -95,6 +95,6 @@ exports = module.exports = function(io){
                     break;
                 }
             }
-        });
+        });       
     });
 }

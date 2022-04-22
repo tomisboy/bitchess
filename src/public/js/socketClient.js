@@ -5,7 +5,7 @@ $(function(){
             togglemode: ($('#togglemode').val() == 'on' ? 'public' : 'private')
         });
     });
-    socket.on('roomDetail', (roomData) => {
+    /*socket.on('roomDetail', (roomData) => {
        // $('#onlinePlayers').html('');
         roomData.users.forEach(user => {
             $('#onlinePlayers')
@@ -65,5 +65,5 @@ $(function(){
         board.reset();
         chess.reset();
     })
-
+    */
 }(jQuery));
