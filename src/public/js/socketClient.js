@@ -1,3 +1,5 @@
+const socket = io()
+
 function randomRoomId(){
     let roomId = '';
     let length = 12;
@@ -21,12 +23,12 @@ $(function(){
         })
 
         $.post("/creategame", {socketid: room, public: togglemode})
-    });
+    })
     $(document).on('submit', '#joinPrivateForm', function(event){
         socket.emit('joinPrivateGame', {
             room: $('#room').val()
         });
-    });
+    })
     /*
     socket.on('opponentDisconnect',function(){
         $('.notification')

@@ -93,8 +93,10 @@ function updateStatus(){
     }
 }
 
-$(function(){
-    
+$(function(){  
+    socket.on('testMessage', (requestData) => {
+        console.log('abc')
+    }) 
     /*$(document).on('click', '.setOrientation', function(){
         
         socket.emit('setOrientation', {

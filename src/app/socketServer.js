@@ -5,11 +5,13 @@ exports = module.exports = function(io){
     io.on('connection', (socket) => {
         socket.on('createGameForm', (formData) => { 
             let socketid = formData.socketid         
-            socket.join(socketid);
+            console.log(socketid)
+            socket.join(socketid);         
         });
 
         socket.on('joinPrivateGame', (requestData) => {
             socket.join(requestData.room)
+            socket.emit('testMessage')
         });
         /*
         
