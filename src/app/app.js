@@ -132,7 +132,7 @@ app.post('/createbotgame', async (req, res) =>{
 
 app.post('/creategame', async (req, res) => {
     try{    
-        db.createGame(req.user.id, "null", "null", req.body.socketid, req.body.public)
+        db.createGame(req.user.id, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "", req.body.socketid, req.body.public)
     } catch (e){
     }
 })

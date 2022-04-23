@@ -95,7 +95,7 @@ function updateStatus(){
 
 $(function(){
     
-    $(document).on('click', '.setOrientation', function(){
+    /*$(document).on('click', '.setOrientation', function(){
         
         socket.emit('setOrientation', {
             room: $(this).data('room'),
@@ -149,5 +149,5 @@ $(function(){
         chess.reset();
         board.reset();
     });
-
+    */
 });

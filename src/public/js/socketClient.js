@@ -27,11 +27,6 @@ $(function(){
             room: $('#room').val()
         });
     });
-
-    socket.on('userJoined', (userData) => {
-        console.log(userData);
-    });
-
     /*
     socket.on('opponentDisconnect',function(){
         $('.notification')
