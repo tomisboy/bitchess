@@ -1,77 +1,18 @@
-const users = [];
-
-function randomRoomId(){
-    let roomId = '';
-    let length = 12;
-    let randomChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for(counter = 0; counter < length; counter++){
-        roomId += randomChar.charAt(Math.floor(Math.random() * randomChar.length));
-    }
-
-    return roomId;
-
-}
+const db = require('./database.js')
 
 exports = module.exports = function(io){
 
     io.on('connection', (socket) => {
         socket.on('createGameForm', (formData) => { 
-            let roomname = formData.roomname
-            let togglemode = formData.togglemode
-            let room = randomRoomId();         
+            let socketid = formData.socketid         
+            socket.join(socketid);
+        });
 
-            users.push({
-                id: socket.id,
-                roomname: roomname,
-                togglemode: togglemode,
-                room: room
-            });
-
-            socket.join(room);
-            socket.broadcast.emit("roomDetail", {
-                users: users,
-            });
-
-            console.log(users)
+        socket.on('joinPrivateGame', (requestData) => {
+            socket.join(requestData.room)
         });
         /*
-        socket.emit('existingUsers', {
-            users:users,
-            currentUserId: socket.id
-        });
-
-        socket.on('sendJoinRequest', (requestData) => {
-            let user = users.filter(user=>user.id == socket.id)[0];
-            socket.broadcast.to(requestData.room).emit('joinRequestRecieved', {
-                id: user.id,
-                name: user.name,
-                room: user.room
-            });
-        });
-
-        socket.on('acceptGameRequest', (requestData) => {
-            let user = users.filter(user=>user.id == socket.id)[0];
-           
-            socket.broadcast.to(requestData.room).emit('gameRequestAccepted', {
-                id: user.id,
-                name: user.name,
-                room: user.room,
-                
-            });
-            
-        });
-
-        socket.on('setOrientation', (requestData) => {
-            let user = users.filter(user=>user.id == socket.id)[0];
-            socket.broadcast.to(requestData.room).emit('setOrientationOppnt', {
-                color: requestData.color,
-                id: user.id,
-                name: user.name,
-                room: user.room,
-            });
-        });
-
+        
         socket.on('chessMove', (requestData) => {
             console.log(requestData);
             socket.broadcast.to(requestData.room).emit('oppntChessMove',{
@@ -87,14 +28,6 @@ exports = module.exports = function(io){
         socket.on('gameWon', (requestData) => {
             socket.broadcast.to(requestData.room).emit('oppntWon');
         });
-        */
-        socket.on('disconnect', () => {
-            for(i = 0; i< users.length; i++){
-                if(users[i].id == socket.id){
-                    users.splice(i,1);
-                    break;
-                }
-            }
-        });       
+        */     
     });
 }

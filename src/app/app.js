@@ -44,7 +44,7 @@ app.get('/homepage', checkAuthenticated,(req, res) => {
 })
 
 app.get('/create', checkAuthenticated, (req, res) => {
-    res.render('create.ejs', { username: req.user.username })
+    res.render('create.ejs', { username: req.user.username})
 })
 
 app.get('/join', checkAuthenticated, (req, res) => {
@@ -76,13 +76,17 @@ app.get('/profile', checkAuthenticated, (req, res) => {
     res.render('profile.ejs', { username: req.user.username })
 })
 
+app.get('/chessgame', checkAuthenticated, (req, res) => {
+    res.render('chessgame.ejs', { username: req.user.username })
+})
+
 app.post('/loginsubmit', passport.authenticate('local',{
     successRedirect: '/homepage',
     failureRedirect: '/',
     failureFlash: true
 }))
 
-app.post('/creategame', async (req, res) => {
+app.post('/joinchessgame', checkAuthenticated, (req, res) => {
     res.render('chessgame.ejs', { username: req.user.username })
 })
 
@@ -123,6 +127,13 @@ app.post('/createbotgame', async (req, res) =>{
         res.redirect('/botgame')
     } catch (e){    
         res.redirect('/homepage')
+    }
+})
+
+app.post('/creategame', async (req, res) => {
+    try{    
+        db.createGame(req.user.id, "null", "null", req.body.socketid, req.body.public)
+    } catch (e){
     }
 })
 
