@@ -10,10 +10,14 @@
         <link href="css/login.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          const socket = io();
+        </script>  
         <script src="/js/socketClient.js"></script>
+
+
 
     </head>
 
@@ -35,7 +39,7 @@
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Create a new game</h4>
                                     <!--Create a game form-->
-                                    <form id="createGameForm" action="/joinchessgame" method="POST">
+                                    <form id="createGameForm" action="/chessgame" method="POST">
                                         <h6 class="mb-0 pb-3"><span>Public game</span><span>Private game</span></h6>
                                         <input class="checkbox" type="checkbox" id="togglemode" name="togglemode"/>	
                                         <label for="togglemode"></label>
@@ -44,7 +48,7 @@
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div>s
                     </div>
                 </div>
             </div>

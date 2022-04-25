@@ -7,7 +7,9 @@ const flash = require('express-flash')
 const session = require('express-session')
 const db = require('./database.js')
 const methodOverride = require('method-override')
-const { io } = require('socket.io-client')
+ 
+
+
 
 require('dotenv').config();
 
@@ -37,14 +39,14 @@ app.use('/lib', express.static(__dirname + 'public/lib'))
 //Routing Targets
 app.get('/', (req, res) => {
     res.render('login.ejs')
-})
+}) 
 
 app.get('/homepage', checkAuthenticated,(req, res) => {
     res.render('homepage.ejs', { username: req.user.username })
 })
 
 app.get('/create', checkAuthenticated, (req, res) => {
-    res.render('create.ejs', { username: req.user.username})
+    res.render('chessgame.ejs', { username: req.user.username})
 })
 
 app.get('/join', checkAuthenticated, (req, res) => {
@@ -86,7 +88,7 @@ app.post('/loginsubmit', passport.authenticate('local',{
     failureFlash: true
 }))
 
-app.post('/joinchessgame', checkAuthenticated, (req, res) => {
+app.post('/chessgame', checkAuthenticated, (req, res) => {
     res.render('chessgame.ejs', { username: req.user.username })
 })
 

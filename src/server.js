@@ -8,7 +8,7 @@ var server = http.createServer(app).listen(PORT, function(){
     console.log("Express server listening on port " + PORT)
 })
 
-var io = socket(server);
-
+const io = require('socket.io')(server);
 const socketSever = require('./app/socketServer.js')
 socketSever(io)
+

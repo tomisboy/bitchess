@@ -1,35 +1,132 @@
 const db = require('./database.js')
 
-exports = module.exports = function(io){
+
+
+const users = [];
+function randomRoomId() {
+    let roomId = '';
+    let length = 4;
+    let randomChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (counter = 0; counter < length; counter++) {
+        roomId += randomChar.charAt(Math.floor(Math.random() * randomChar.length));
+    }
+
+    return roomId;
+
+}
+
+
+exports = module.exports = function (io) {
 
     io.on('connection', (socket) => {
-        socket.on('createGameForm', (formData) => { 
-            let socketid = formData.socketid         
-            console.log(socketid)
-            socket.join(socketid);         
+
+        socket.on('StartLobby', (requestData) => {
+            //console.log(requestData)
+
+            let room = randomRoomId();
+            let lobbyname = requestData.name;
+
+            users.push({
+                id: socket.id,
+                name: lobbyname,
+                room: room
+            });
+            socket.join(room);
+            console.log(users);
+
+            socket.broadcast.emit("roomDetail", {
+                users: users, 
+            
+                
+            });
+
         });
 
-        socket.on('joinPrivateGame', (requestData) => {
-            socket.join(requestData.room)
-            socket.emit('testMessage')
+        socket.emit('existingUsers', {
+            users: users,
+            currentUserId: socket.id
         });
-        /*
-        
+
+        socket.on('triggerStart', (requestData) => {
+            let user = users.filter(user => user.id == socket.id)[0];
+            socket.broadcast.to(requestData.room).emit('startgame', {
+                id: user.id,
+                name: user.name,
+                room: user.room
+            })
+        });
+
+
+        socket.on('sendJoinRequest', (requestData) => {
+            //console.log(requestData.room);
+            let user = users.filter(user => user.id == socket.id)[0];
+            console.log(user.name)
+            socket.broadcast.to(requestData.room).emit('joinRequestRecieved', {
+                id: user.id,
+                name: user.name,
+                room: user.room
+            });
+        });
+
+        socket.on('acceptGameRequest', (requestData) => {
+            let user = users.filter(user => user.id == socket.id)[0];
+
+            socket.broadcast.to(requestData.room).emit('gameRequestAccepted', {
+                id: user.id,
+                name: user.name,
+                room: user.room,
+
+            });
+
+        });
+        socket.on('setOrientation', (requestData) => {
+            let user = users.filter(user => user.id == socket.id)[0];
+            socket.broadcast.to(requestData.room).emit('setOrientationOppnt', {
+                color: requestData.color,
+                id: user.id,
+                name: user.name,
+                room: user.room,
+            });
+        });
+
+
+
+
+
+
         socket.on('chessMove', (requestData) => {
             console.log(requestData);
-            socket.broadcast.to(requestData.room).emit('oppntChessMove',{
+            socket.broadcast.to(requestData.room).emit('oppntChessMove', {
                 color: requestData.color,
                 from: requestData.from,
                 to: requestData.to,
                 piece: requestData.piece,
-                promo: requestData.promo||''
+                promo: requestData.promo || ''
 
             });
         });
 
-        socket.on('gameWon', (requestData) => {
-            socket.broadcast.to(requestData.room).emit('oppntWon');
+
+
+
+
+
+
+
+
+
+
+
+
+
+        socket.on('disconnect', () => {
+            for (i = 0; i < users.length; i++) {
+                if (users[i].id == socket.id) {
+                    users.splice(i, 1);
+                    break;
+                }
+            }
         });
-        */     
     });
 }

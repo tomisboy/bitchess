@@ -94,9 +94,78 @@ function updateStatus(){
 }
 
 $(function(){  
+
+    socket.on('oppntChessMove', (requestData) => {
+        console.log(requestData);
+        let color = requestData.color;
+        let source = requestData.from;
+        let target = requestData.to;
+        let promo = requestData.promo||'';
+
+
+        chess.move({from:source,to:target,promotion:promo});
+        board.position(chess.fen());
+        //chess.move(target);
+        //chess.setFenPosition();
+
+    });
+
+
+    
+    $(document).on('click', '.setOrientation', function(){
+        
+        socket.emit('setOrientation', {
+            room: $(this).data('room'),
+            color: ($(this).data('color') === 'black') ? 'white': 'black'
+        });
+        
+        board.orientation( $(this).data('color') );
+        board.start();
+        if($(this).data('color') == 'black'){
+            $('.notification')
+            .html('<div class="alert alert-success">Great ! Let\'s start game. You choose Black. Wait for White Move.</div>');
+        }else{
+            $('.notification')
+            .html('<div class="alert alert-success">Great ! Let\'s start game. You choose White. Start with First Move.</div>');
+        }
+    });
+    socket.on('setOrientationOppnt', (requestData) => {
+        //console.log(requestData);
+        board.orientation(requestData.color);
+        board.start();
+        $('#onlinePlayers li#'+requestData.id).addClass('active');
+        if(requestData.color == 'white'){  
+            $('.notification')
+        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Let\'s start with First Move.</div>');
+        } else{
+            $('.notification')
+        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Wait for White Move.</div>');
+        }
+        
+    });
+    socket.on('startgame', (requestData) => {
+        socket.emit('setOrientation', {
+            room: $(this).data('room'),
+            color: requestData.color
+        });
+        board.orientation("black");
+        board.start();
+
+        
+    });
+
     socket.on('testMessage', (requestData) => {
-        console.log('abc')
-    }) 
+        console.log(requestData.id)
+        console.log("This is a test message inside chessgame.js")
+        console.log("du bist im raum")
+        alert(requestData.id)
+    
+    
+        
+        //chess.move(target);
+        //chess.setFenPosition();
+    
+    });
     /*$(document).on('click', '.setOrientation', function(){
         
         socket.emit('setOrientation', {
@@ -115,20 +184,7 @@ $(function(){
         }
     });
 
-    socket.on('setOrientationOppnt', (requestData) => {
-        //console.log(requestData);
-        board.orientation(requestData.color);
-        board.start();
-        $('#onlinePlayers li#'+requestData.id).addClass('active');
-        if(requestData.color == 'white'){  
-            $('.notification')
-        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Let\'s start with First Move.</div>');
-        } else{
-            $('.notification')
-        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Wait for White Move.</div>');
-        }
-        
-    });
+
 
     socket.on('oppntChessMove', (requestData) => {
         console.log(requestData);
@@ -153,3 +209,5 @@ $(function(){
     });
     */
 });
+
+
