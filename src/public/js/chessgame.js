@@ -3,7 +3,8 @@ var chess = new Chess();
 var currentRoom
 var gameover = 0
 var winningcolor
-var currentuser = $('#userid').html() //lese den aktuellen User aus dem html element 
+var currentUser = $('#userid').html() //lese den aktuellen User aus dem html element 
+var currentUsername = $('#username').html()
 const boardConfig = {
     draggable: true,
     dropOffBoard: 'snapback',
@@ -95,7 +96,7 @@ function updateStatus() {
 
         // Wenn Spiel zu ende Send das Spiel ist vorbei Event an das Backend.
         socket.emit('gameISover', {
-            userWon: currentuser, //Schreibe die info WER (aktueller Client) gewonnen hat
+            userWon: currentUser, //Schreibe die info WER (aktueller Client) gewonnen hat
             room: currentRoom  //welcher raum ist zu ende
         });
         window.alert(status);
@@ -149,12 +150,18 @@ $(function () {
 
         board.orientation($(this).data('color'));  //starte das Schachfeld auf der Hostseite mit der ausgewählten Farbe
         board.start();
+
+        $('#onlinePlayers-class').hide(); // blende die Lobby auf der Seite des Anfragenden aus
+        $('#chat').show() // blende den Chat ein
+
+
+
         if ($(this).data('color') == 'black') {
             $('.notification')
-                .html('<div class="alert alert-success">Great ! Starten wir das Spiel. Sie wählen Schwarz. Warte auf den weißen Zug.</div>');
+                .html('<div class="alert alert-success">Starten wir das Spiel. Sie wählen Schwarz. Warte auf den weißen Zug.</div>');
         } else {
             $('.notification')
-                .html('<div class="alert alert-success">Great ! Starten wir das Spiel. Sie wählen Weiß. Beginne mit dem ersten Zug.</div>');
+                .html('<div class="alert alert-success">Starten wir das Spiel. Sie wählen Weiß. Beginne mit dem ersten Zug.</div>');
         }
     });
     socket.on('setOrientationOppnt', (requestData) => {
@@ -164,6 +171,11 @@ $(function () {
 
         board.orientation(requestData.color);
         board.start();
+
+
+
+        $('#onlinePlayers-class').hide(); // blende die Lobby auf der Seite des Host aus
+        $('#chat').show() // blende den Chat ein
 
         if (requestData.color == 'white') {
             $('.notification')

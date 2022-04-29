@@ -10,6 +10,8 @@ $(function () {
                 name: $('#username').html(), // Zusätzlich wird der aktuelle Username übergeben 
             });
 
+        $('#chat').hide() // blende den chat aus, dieser wir erst beim erstellen eines raumes eingeblendet
+        $('#onlinePlayers-class').show() // zeige die Lobby Liste 
         //$.post("/creategame", {socketid: room, public: togglemode})
     });
 
@@ -45,12 +47,12 @@ $(function () {
     });
 
 
-    $(document).on('click', '.acceptGameRequest', function () { 
+    $(document).on('click', '.acceptGameRequest', function () {
         //funkion wird aufgerufen wenn auf den Annehmen button(acceptGameRequest) gedrückt wird 
         socket.emit('acceptGameRequest', {
         });
 
-        $('#onlinePlayers').hide(); // blende die Lobby auf der Seite des Anfragenden aus
+
         $('.notification')
             .html('<div class="alert alert-success">Bitte warten Sie auf die Spielinitialisierung vom Host.</div>');
     });
@@ -65,7 +67,7 @@ $(function () {
         $('.notification')
             .append($('<div class="text-center">'))
             .append('Choose rotation. <button data-room="' + userData.room + '" data-color="black" type="button" class="btn btn-primary btn-sm setOrientation">Black</button> or <button data-room="' + userData.room + '" data-color="white" type="button" class="btn btn-primary btn-sm setOrientation">White</button>');
-        $('#onlinePlayers').hide(); // blende die Lobby auf der Seite des Hosts aus
+
     });
 
 
@@ -81,6 +83,43 @@ $(function () {
         });
 
     });
+
+
+
+
+
+
+
+
+
+    ////#######CHAT
+
+    socket.on('chat-sent', (userData) => {
+        appendMessage(userData.user, userData.message)
+
+    })
+
+
+    $(document).on('click', '.sendbutton', function () {
+        //sobald auf den Send button geklick wird wird der inhalt ans Socket backend gesendet
+        const messageInput = document.getElementById('message-input')
+        appendMessage(currentUsername, messageInput.value,)
+        socket.emit('send-chat-message', { //
+            message: messageInput.value, //sende den input des nachrichtenfeldes 
+            room: currentRoom,  //sende von welchen raus aus gechattwt wird 
+            user: currentUsername //sende von welchem User aus gesendet wird
+        });
+        messageInput.value = '' //leere das Eingabefeld
+    });
+
+
+    function appendMessage(user, message) {
+        //universallfunktion um eine Nachricht in den Chat zu Schreiben
+        const messageContainer = document.getElementById('message-container')
+        const messageElement = document.createElement('div')
+        messageElement.innerText = (user + " sagt: " + message)
+        messageContainer.append(messageElement)
+    }
 
 
 }(jQuery));

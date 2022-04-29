@@ -35,7 +35,7 @@
 
 
 
-        <div class="col-md-3">
+        <div class="col-md-3" id=onlinePlayers-class>
             <h2>Online Players</h2>
             <ul class="list-group" id="onlinePlayers">
                 <li class="list-group-item">
@@ -48,6 +48,7 @@
         <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
         
         <div id="chessBoard" style="width:700px;padding-top:50px; margin:auto;"></div>
+        <div id chat><%- include('./chat.ejs') %> </div>
         
         <%- include('./footer.ejs') %>
         <script src="/js/chessgame.js"></script>
