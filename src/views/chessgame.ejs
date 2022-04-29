@@ -13,24 +13,44 @@
 
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
-        <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>      
+        <script src="lib/chessboardjs/js/chessboard-1.0.0.min.js"></script>  
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+          //const socket = io();
+          var socket = io({transports: ['websocket'], upgrade: false});
+        </script>  
+
+        <script src="/js/socketClient.js"></script>
+       
     </head>
 
     <body>
         <%- include('./header.ejs') %>
+        <div class="col-md-9">
+            <div class="notification"></div>
+            
+            <div id="chessBoard" style="width:450px;padding-top:50px; margin:auto;"></div>
+        </div>
+
+
+
+
+        <div class="col-md-3">
+            <h2>Online Players</h2>
+            <ul class="list-group" id="onlinePlayers">
+                <li class="list-group-item">
+                </li>
+            </ul>
+            
+        </div>
+      
         
         <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
         
         <div id="chessBoard" style="width:700px;padding-top:50px; margin:auto;"></div>
         
         <%- include('./footer.ejs') %>
-
-        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
-        <script>
-        const socket = io();
-        </script>
-
         <script src="/js/chessgame.js"></script>
-        <script src="/js/socketClient.js"></script>
+
     </body>
 </html>

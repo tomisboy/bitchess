@@ -7,6 +7,9 @@ const flash = require('express-flash')
 const session = require('express-session')
 const db = require('./database.js')
 const methodOverride = require('method-override')
+ 
+
+
 
 require('dotenv').config();
 
@@ -36,43 +39,48 @@ app.use('/lib', express.static(__dirname + 'public/lib'))
 //Routing Targets
 app.get('/', (req, res) => {
     res.render('login.ejs')
-})
+}) 
 
 app.get('/homepage', checkAuthenticated,(req, res) => {
-    res.render('homepage.ejs', { username: req.user.username })
+    res.render('homepage.ejs', { username: req.user.username, userid: req.user.id})
 })
 
 app.get('/create', checkAuthenticated, (req, res) => {
-    res.render('create.ejs', { username: req.user.username })
+    console.log(req.user.id, req.user.username)
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/join', checkAuthenticated, (req, res) => {
-    res.render('join.ejs', { username: req.user.username })
+    res.render('join.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/statistics', checkAuthenticated, (req, res) => {
-    res.render('statistics.ejs', { username: req.user.username })
+    res.render('statistics.ejs', { username: req.user.username, userid: req.user.id })
 })
 app.get('/createbotgame', checkAuthenticated, checkBotgame)
 
 app.get('/botgame', checkAuthenticated, (req, res) => {
-    res.render('botgame.ejs', { username: req.user.username })
+    res.render('botgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/leaderboard', checkAuthenticated, (req, res) => {
-    res.render('leaderboard.ejs', { username: req.user.username })
+    res.render('leaderboard.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/joinpublic', checkAuthenticated, (req, res) => {
-    res.render('joinpublic.ejs', { username: req.user.username })
+    res.render('joinpublic.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/joinprivate', checkAuthenticated, (req, res) => {
-    res.render('joinprivate.ejs', { username: req.user.username })
+    res.render('joinprivate.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
-    res.render('profile.ejs', { username: req.user.username })
+    res.render('profile.ejs', { username: req.user.username, userid: req.user.id })
+})
+
+app.get('/chessgame', checkAuthenticated, (req, res) => {
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.post('/loginsubmit', passport.authenticate('local',{
@@ -81,8 +89,8 @@ app.post('/loginsubmit', passport.authenticate('local',{
     failureFlash: true
 }))
 
-app.post('/creategame', async (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username })
+app.post('/chessgame', checkAuthenticated, (req, res) => {
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.post('/registersubmit', async (req, res) =>{
@@ -122,6 +130,13 @@ app.post('/createbotgame', async (req, res) =>{
         res.redirect('/botgame')
     } catch (e){    
         res.redirect('/homepage')
+    }
+})
+
+app.post('/creategame', async (req, res) => {
+    try{    
+        db.createGame(req.user.id, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", "", req.body.socketid, req.body.public)
+    } catch (e){
     }
 })
 
@@ -189,7 +204,7 @@ function checkBotgame(req, res){
             res.redirect('/botgame')
         }
         else
-            res.render('createbotgame.ejs', { username: req.user.username })
+            res.render('createbotgame.ejs', { username: req.user.username, userid: req.user.id })
     })    
 }
 

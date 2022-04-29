@@ -25,3 +25,4 @@ For example, the password required by the application in the backend to connect 
 ![image](https://user-images.githubusercontent.com/15163807/159121449-25443351-be38-4dd3-8374-318fee16ff3a.png)
 
 For the Productiv environment, this .env file is only [created during the CI/CD pipeline with GitHub actions](https://github.com/tomisboy/bitchess/blob/d96dbe0b545392f3c139bce8dd209dd35f66bcc0/.github/workflows/North-Stream2.yaml#L26). In this workflow the required secrets/passwords can be taken from the own Github Secret Store. 
+

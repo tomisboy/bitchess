@@ -151,6 +151,43 @@ module.exports = {
     }
   },
   // -----------------------------
+  // Games
+  // -----------------------------
+  createGame: function(playerid, board, moves, socketid, public){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("INSERT INTO games (playerone, board, moves, date, socketid, public) VALUES (?,?,?,?,?,?)", [playerid, board, moves, Date.now(), socketid, public], function (err, result){
+        if (err) throw err;
+      })
+
+      con.end()
+    } catch (e) {
+        console.log(e)
+    }
+  },
+  eloupdate: function(playerwon, playerlost){
+    try{
+      var con = mysql.createConnection(dbconfig);
+      con.connect()
+      con.query("UPDATE users SET rating = rating + 30 WHERE id = ?", [playerwon] , function (err, result){
+        if (err) throw err;
+  
+      }),
+      con.query("UPDATE users SET rating = rating - 30 WHERE id = ?", [playerlost] , function (err, result){
+        if (err) throw err;
+      })
+      con.end()
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+
+
+
+
+  // -----------------------------
   // BOTGAMES
   // -----------------------------
   createBotgame: function(playerid, board, moves){

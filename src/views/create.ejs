@@ -10,6 +10,16 @@
         <link href="css/login.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+         // const socket = io();
+          var socket = io({transports: ['websocket'], upgrade: false});
+        </script>  
+        <script src="/js/socketClient.js"></script>
+
+
+
     </head>
 
     <body>
@@ -30,21 +40,16 @@
                                 <div class="section text-center">
                                     <h4 class="mb-4 pb-3">Create a new game</h4>
                                     <!--Create a game form-->
-                                    <form action="/creategame" method="POST">
-                                        <div class="form-group">
-                                            <input type="text" name="roomname" class="form-style" placeholder="Gameroom name" id="roomname" autocomplete="off" required>
-                                            <i class="input-icon bi bi-input-cursor-text"></i>
-                                        </div>
-                                        <br>
+                                    <form id="createGameForm" action="/chessgame" method="POST">
                                         <h6 class="mb-0 pb-3"><span>Public game</span><span>Private game</span></h6>
-                                        <input class="checkbox" type="checkbox" id="tooglemode" name="tooglemode"/>	
-                                        <label for="tooglemode"></label>
+                                        <input class="checkbox" type="checkbox" id="togglemode" name="togglemode"/>	
+                                        <label for="togglemode"></label>
                                         <button type="submit" href="#" class="btn mt-4">Create!</button>
                                         <% if(messages.error) {messages.error} %>
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div>s
                     </div>
                 </div>
             </div>
