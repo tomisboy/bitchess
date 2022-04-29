@@ -57,7 +57,7 @@ exports = module.exports = function (io) {
             console.log(users);
 
             let user = users.filter(user => user.id == socket.id)[0]; //hole die User der die Anfrag gesendet hat aus der List aller User
-            user.room = requestData.room  // setze den room des users auf den, den er beigetreten ist
+            user.room = requestData.room // setze den room des users auf den, den er beigetreten ist
             socket.broadcast.to(requestData.room).emit('joinRequestRecieved', {
                 //sendet die Info/EVENT, dass sich jemand mit der Lobby verbinden will als Broadcast in dem Raum
                 //dieses EVENT landet zwagsläufig beim Herausforderer/Host
@@ -125,6 +125,23 @@ exports = module.exports = function (io) {
 
             });
         });
+
+
+
+
+
+
+        socket.on('send-chat-message', (requestData) => { // middleware funktion um gezogene Figure an den anderen Client zu senden.
+            console.log(requestData.message  +" sende weiter an  " + requestData.room );
+            socket.broadcast.to(requestData.room).emit('chat-sent', {
+                //sende an den Raum zuürck die nachricht und von wem die Nachricht kommt
+                message : requestData.message,
+                user : requestData.user
+            });
+            
+        });
+
+        
 
 
         socket.on('disconnect', () => { //Socket disconnect funktion
