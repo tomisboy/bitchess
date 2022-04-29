@@ -1,3 +1,4 @@
+// $.post("/creategame", {socketid: room, public: togglemode})
 
 $(function () {
 
