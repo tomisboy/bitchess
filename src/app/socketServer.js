@@ -25,11 +25,11 @@ exports = module.exports = function (io) {
             //console.log(requestData)
 
             let room = randomRoomId();
-            let lobbyname = requestData.name;
+            let username = requestData.name;
 
             users.push({
                 id: socket.id,
-                name: lobbyname,
+                name: username,
                 room: room
             });
             socket.join(room);
@@ -48,14 +48,14 @@ exports = module.exports = function (io) {
             currentUserId: socket.id
         });
 
-        socket.on('triggerStart', (requestData) => {
-            let user = users.filter(user => user.id == socket.id)[0];
-            socket.broadcast.to(requestData.room).emit('startgame', {
-                id: user.id,
-                name: user.name,
-                room: user.room
-            })
-        });
+        //        socket.on('triggerStart', (requestData) => {
+        //            let user = users.filter(user => user.id == socket.id)[0];
+        //            socket.broadcast.to(requestData.room).emit('startgame', {
+        //                id: user.id,
+        //                name: user.name,
+        //                room: user.room
+        //            })
+        //        });
 
 
         socket.on('sendJoinRequest', (requestData) => {
@@ -70,7 +70,7 @@ exports = module.exports = function (io) {
             console.log("send JoinRequest... to room ")
             console.log(requestData.room)
             socket.join(requestData.room)
-            user.room = requestData.room 
+            user.room = requestData.room
             console.log("trete raum bei")
             console.log("Zeige aktuellen raum")
             console.log(users)
@@ -120,19 +120,6 @@ exports = module.exports = function (io) {
 
             });
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         socket.on('disconnect', () => {
             for (i = 0; i < users.length; i++) {
