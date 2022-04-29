@@ -42,44 +42,45 @@ app.get('/', (req, res) => {
 }) 
 
 app.get('/homepage', checkAuthenticated,(req, res) => {
-    res.render('homepage.ejs', { username: req.user.username })
+    res.render('homepage.ejs', { username: req.user.username, userid: req.user.id})
 })
 
 app.get('/create', checkAuthenticated, (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username})
+    console.log(req.user.id, req.user.username)
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/join', checkAuthenticated, (req, res) => {
-    res.render('join.ejs', { username: req.user.username })
+    res.render('join.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/statistics', checkAuthenticated, (req, res) => {
-    res.render('statistics.ejs', { username: req.user.username })
+    res.render('statistics.ejs', { username: req.user.username, userid: req.user.id })
 })
 app.get('/createbotgame', checkAuthenticated, checkBotgame)
 
 app.get('/botgame', checkAuthenticated, (req, res) => {
-    res.render('botgame.ejs', { username: req.user.username })
+    res.render('botgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/leaderboard', checkAuthenticated, (req, res) => {
-    res.render('leaderboard.ejs', { username: req.user.username })
+    res.render('leaderboard.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/joinpublic', checkAuthenticated, (req, res) => {
-    res.render('joinpublic.ejs', { username: req.user.username })
+    res.render('joinpublic.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/joinprivate', checkAuthenticated, (req, res) => {
-    res.render('joinprivate.ejs', { username: req.user.username })
+    res.render('joinprivate.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
-    res.render('profile.ejs', { username: req.user.username })
+    res.render('profile.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.get('/chessgame', checkAuthenticated, (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username })
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.post('/loginsubmit', passport.authenticate('local',{
@@ -89,7 +90,7 @@ app.post('/loginsubmit', passport.authenticate('local',{
 }))
 
 app.post('/chessgame', checkAuthenticated, (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username })
+    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.post('/registersubmit', async (req, res) =>{
@@ -203,7 +204,7 @@ function checkBotgame(req, res){
             res.redirect('/botgame')
         }
         else
-            res.render('createbotgame.ejs', { username: req.user.username })
+            res.render('createbotgame.ejs', { username: req.user.username, userid: req.user.id })
     })    
 }
 

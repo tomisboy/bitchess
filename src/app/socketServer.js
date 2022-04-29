@@ -22,21 +22,25 @@ exports = module.exports = function (io) {
     io.on('connection', (socket) => {
 
         socket.on('StartLobby', (requestData) => {
-            //console.log(requestData)
+            console.log(requestData)
 
             let room = randomRoomId();
             let username = requestData.name;
+            let userid = requestData.userid
 
+
+            
             users.push({
                 id: socket.id,
                 name: username,
-                room: room
+                room: room,
+                userid: userid
             });
             socket.join(room);
             console.log(users);
 
-            socket.broadcast.emit("roomDetail", {
-                users: users,
+            socket.broadcast.emit("roomDetail", { // Melde allen dass du zu spielen bereit bist
+                users: users
 
 
             });
@@ -95,6 +99,7 @@ exports = module.exports = function (io) {
 
         });
         socket.on('setOrientation', (requestData) => {
+            console.log("server seitige set Orientaion" + requestData.color)
             let user = users.filter(user => user.id == socket.id)[0];
             socket.broadcast.to(requestData.room).emit('setOrientationOppnt', {
                 color: requestData.color,
@@ -105,6 +110,21 @@ exports = module.exports = function (io) {
         });
 
 
+
+
+        socket.on('gameISover', (userData) => {
+            socket.broadcast.to(userData.room).emit('getloser',
+                {
+                    //gehe zum Client der verloren hat und hole seine ID
+                    won: userData.userWon,
+                })
+        });
+
+        socket.on('calculateELO', (userData) => {
+            console.log("Das Spiel ist aus. Gewonnen hat  " + userData.won)
+            console.log("Das Spiel ist aus. Verloren hat  " + userData.lost)
+            db.eloupdate(userData.won, userData.lost)
+        });
 
 
 
@@ -121,13 +141,14 @@ exports = module.exports = function (io) {
             });
         });
 
-        socket.on('disconnect', () => {
-            for (i = 0; i < users.length; i++) {
-                if (users[i].id == socket.id) {
-                    users.splice(i, 1);
-                    break;
-                }
-            }
-        });
-    });
+
+      socket.on('disconnect', () => {
+          for (i = 0; i < users.length; i++) {
+              if (users[i].id == socket.id) {
+                  users.splice(i, 1);
+                  break;
+              }
+          }
+      });
+    });// 
 }

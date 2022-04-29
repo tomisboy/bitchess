@@ -3,7 +3,7 @@
 $(function () {
 
     $(document).ready(function () {
-        console.log("ready!");
+        console.log("ready!")
         $('#onlinePlayers').hide();
     });
 
@@ -16,7 +16,7 @@ $(function () {
         socket.emit('StartLobby',
             {
                 name: $('#username').html(),
-                name123: $('#lobbyname').val(),
+                userid: $('#userid').html(),
             });
 
         $('#StartLobby').hide();
@@ -27,36 +27,34 @@ $(function () {
 
 
     socket.on('roomDetail', (roomData) => {
-        // $('#onlinePlayers').html('');
+        //console.log("roomde")
         $('#onlinePlayers').empty()
         roomData.users.forEach(user => {
             $('#onlinePlayers')
                 .append($('<li class="list-group-item" id="' + user.id + '">')
                     .html('<button type="button" data-room="' + user.room + '" class="btn btn-primary btn-sm joinGameRequest">' + user.name + '</button>'));
         });
+        //console.log(document.getElementById(socket.id))
+        if (document.getElementById(socket.id)) {
+            //console.log("ja" + document.getElementById(socket.id))
+            $(document.getElementById(socket.id)).hide()
+        }
     });
 
     socket.on('existingUsers', (userData) => {
-        // $('#onlinePlayers').html('');
-        $('#onlinePlayers').empty()
-        console.log(userData.users)
+        console.log("exitingusers")
+        currentuser = $('#userid').html()
         userData.users.forEach(user => {
-            console.log(userData.users)
-            console.log("userid=" + user.id )
-            console.log(" current userid=" + userData.currentUserId )
-            if (userData.currentUserId != user.id ) {
-                console.log("JA")
-                $('#onlinePlayers')
-                    .append($('<li class="list-group-item" id="' + user.id + '">')
-                        .html('<button type="button" data-room="' + user.room + '" class="btn btn-primary btn-sm joinGameRequest">' + user.name + '</button>'));
-            }
+            $('#onlinePlayers')
+                .append($('<li class="list-group-item" id="' + user.id + '">')
+                    .html('<button type="button" data-room="' + user.room + '" class="btn btn-primary btn-sm joinGameRequest">' + user.name + '</button>'));
         });
     });
 
     $(document).on('click', '.joinGameRequest', function () {
         socket.emit('sendJoinRequest', {
             room: $(this).data('room'),
-            
+
         });
         $('.notification').html('<div class="alert alert-success">Game request sent.</div>');
     });
@@ -91,6 +89,18 @@ $(function () {
         $('#onlinePlayers li#' + userData.id).addClass('active');
         $('#onlinePlayers').hide();
     });
+
+    socket.on('getloser', (userData) => {
+        //diese nachricht bekommt der verlierer
+        let currentLOSTuser = $('#userid').html()
+        //console.log("ich hab verloren")
+        socket.emit('calculateELO', {
+            lost: currentLOSTuser,
+            won: userData.won
+        });
+
+    });
+
 
 
 

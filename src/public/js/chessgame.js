@@ -1,8 +1,10 @@
 var board = null;
 var chess = new Chess();
 var currentRoom
-
-
+var colorhost
+var gameover = 0
+var winningcolor
+var currentuser= $('#userid').html()
 const boardConfig = {
     draggable: true,
     dropOffBoard: 'snapback',
@@ -14,89 +16,113 @@ var isMachinePlayer = false;
 
 board = Chessboard('chessBoard', boardConfig);
 
-function onDragStart (source, piece, position, orientation) {
-    // 
-   // console.log(chess.turn());
-    if(chess.in_checkmate()){
-        let confirm = window.confirm("You Lost! Reset the game?");
-        //let room = $('#onlinePlayers li.active button').data('room');
- //       let room = $('#onlinePlayers li.active button').data('room');
-        if(confirm){
-            if(isMachinePlayer){
-                chess.reset();
-                board.start();
-            } else {
+function onDragStart(source, piece, position, orientation) {
 
-                //socket.requestNewGame();
-                socket.emit('gameWon', { 
-                    room: currentRoom,
-                });
+    if (gameover < 1) {
+        // console.log(chess.turn());
+        if (chess.in_checkmate()) {
+            let confirm = window.confirm("You Lost! Reset the game?");
+            gameover = 1
+            //let room = $('#onlinePlayers li.active button').data('room');
+            //       let room = $('#onlinePlayers li.active button').data('room');
+            if (confirm) {
+                if (isMachinePlayer) {
+                    chess.reset();
+                    board.start();
+                } else {
+                    
+                }
             }
         }
+        // do not pick up pieces if the game is over
+        // or if it's not that side's turn
+        if (chess.game_over() ||
+            (chess.turn() === 'w' && piece.search(/^b/) !== -1) ||
+            (chess.turn() === 'b' && piece.search(/^w/) !== -1)) {
+            return false
+        }
     }
-    // do not pick up pieces if the game is over
-    // or if it's not that side's turn
-    if ( chess.game_over() || 
-        (chess.turn() === 'w' && piece.search(/^b/) !== -1) ||
-        (chess.turn() === 'b' && piece.search(/^w/) !== -1)) {
-      return false
+    else {
+        window.alert("gameover");
     }
+
 }
+function onDrop(source, target, piece, newPos, oldPos, orientation) {
 
-function onDrop(source, target, piece, newPos, oldPos, orientation){
-    
-    // see if the move is legal
-    let turn = chess.turn();
-    // let room = $('#onlinePlayers li.active button').data('room');
-    let move = chess.move({
-        color: turn,
-        from: source,
-        to: target,
-        
-        //promotion: document.getElementById("promote").value
-    });
+    if (gameover < 1 ) {
+        // see if the move is legal
+        let turn = chess.turn();
+        // let room = $('#onlinePlayers li.active button').data('room');
+        let move = chess.move({
+            color: turn,
+            from: source,
+            to: target,
 
-    // illegal move
-    if (move === null) return 'snapback';
-    updateStatus();
-    //player just end turn, CPU starts searching after a second
-    if(isMachinePlayer){
-        //window.setTimeout(chessEngine.prepareAiMove(),500);
-    }
-    else { 
-        socket.emit('chessMove', { 
-            room: currentRoom,
-            color: turn, 
-            from: move.from, 
-            to: move.to,
-            piece: move.piece
+            //promotion: document.getElementById("promote").value
         });
-    }
 
+        // illegal move
+        if (move === null) return 'snapback';
+        updateStatus();
+        //player just end turn, CPU starts searching after a second
+        if (isMachinePlayer) {
+            //window.setTimeout(chessEngine.prepareAiMove(),500);
+        }
+        else {
+            socket.emit('chessMove', {
+                room: currentRoom,
+                color: turn,
+                from: move.from,
+                to: move.to,
+                piece: move.piece
+            });
+        }
+
+    } else {
+        window.alert("gameover");
+    }
 }
 
-function updateStatus(){
+function updateStatus() {
     let status = "";
     let moveColor = "White";
-    if(chess.turn()=='b'){   
+    if (chess.turn() == 'b') {
         moveColor = "Black";
     }
-    if(chess.in_checkmate()==true){
-        status=  "You won, " + moveColor + " is in checkmate";
+    if (chess.in_checkmate() == true) {
+        status = "You won, " + moveColor + " is in checkmate";
+        gameover = 1;
+        winningcolor= (moveColor === 'black') ? 'white' : 'black'
+
+
+
+        // Wenn Spiel zu ende sende dies all Room Teilnehmer 
+        console.log(currentRoom)
+        console.log("ein vor broadcast")
+        socket.emit('gameISover', {
+            userWon: currentuser,
+            room: currentRoom
+        });
+
+
+
+
+        console.log(winningcolor);
         window.alert(status);
-        if(isMachinePlayer){
+        if (isMachinePlayer) {
             chess.reset();
             board.start();
         }
-        return; 
-    } else if(chess.in_draw()){
+        return;
+    } else if (chess.in_draw()) {
         status = "Game Over, Drawn";
         window.alert(status);
+        gameover = 1;
         return;
     }
 }
 
-$(function(){  
+$(function () {
 
     socket.on('oppntChessMove', (requestData) => {
         console.log("oppntChessMove")
@@ -104,10 +130,10 @@ $(function(){
         let color = requestData.color;
         let source = requestData.from;
         let target = requestData.to;
-        let promo = requestData.promo||'';
+        let promo = requestData.promo || '';
 
-        console.log("currentroom in chessgame.js" + currentRoom)
-        chess.move({from:source,to:target,promotion:promo});
+        console.log("currentRoom in chessgame.js" + currentRoom)
+        chess.move({ from: source, to: target, promotion: promo });
         board.position(chess.fen());
         //chess.move(target);
         //chess.setFenPosition();
@@ -115,39 +141,42 @@ $(function(){
     });
 
 
-    
-    $(document).on('click', '.setOrientation', function(){
+
+    $(document).on('click', '.setOrientation', function () {
         currentRoom = $(this).data('room')
+        colorhost = $(this).data('color')
         console.log(currentRoom)
         socket.emit('setOrientation', {
             room: $(this).data('room'), //hole room aus den Botton html tag 
-            color: ($(this).data('color') === 'black') ? 'white': 'black'
+            color: ($(this).data('color') === 'black') ? 'white' : 'black', // hier wird jenachdem welche Color gewählt wurde diese für den gegener geswitsched
+            userid: $('#userid').html(),
+            colorhost: $(this).data('color')
         });
-        
-        board.orientation( $(this).data('color') );
+
+        board.orientation($(this).data('color'));
         board.start();
-        if($(this).data('color') == 'black'){
+        if ($(this).data('color') == 'black') {
             $('.notification')
-            .html('<div class="alert alert-success">Great ! Let\'s start game. You choose Black. Wait for White Move.</div>');
-        }else{
+                .html('<div class="alert alert-success">Great ! Let\'s start game. You choose Black. Wait for White Move.</div>');
+        } else {
             $('.notification')
-            .html('<div class="alert alert-success">Great ! Let\'s start game. You choose White. Start with First Move.</div>');
+                .html('<div class="alert alert-success">Great ! Let\'s start game. You choose White. Start with First Move.</div>');
         }
     });
     socket.on('setOrientationOppnt', (requestData) => {
-        //console.log(requestData);
+        console.log(requestData);
 
         board.orientation(requestData.color);
         board.start();
-        $('#onlinePlayers li#'+requestData.id).addClass('active');
-        if(requestData.color == 'white'){  
+        $('#onlinePlayers li#' + requestData.id).addClass('active');
+        if (requestData.color == 'white') {
             $('.notification')
-        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Let\'s start with First Move.</div>');
-        } else{
+                .html('<div class="alert alert-success">Game is initialized by <strong>' + requestData.name + '</strong>. Let\'s start with First Move.</div>');
+        } else {
             $('.notification')
-        .html('<div class="alert alert-success">Game is initialized by <strong>'+requestData.name+'</strong>. Wait for White Move.</div>');
+                .html('<div class="alert alert-success">Game is initialized by <strong>' + requestData.name + '</strong>. Wait for White Move.</div>');
         }
-        
+
     });
     socket.on('startgame', (requestData) => {
         socket.emit('setOrientation', {
@@ -157,7 +186,7 @@ $(function(){
         board.orientation("black");
         board.start();
 
-        
+
     });
 
     socket.on('testMessage', (requestData) => {
@@ -165,12 +194,12 @@ $(function(){
         console.log("This is a test message inside chessgame.js")
         console.log("du bist im raum")
         alert(requestData.id)
-    
-    
-        
+
+
+
         //chess.move(target);
         //chess.setFenPosition();
-    
+
     });
     /*$(document).on('click', '.setOrientation', function(){
         
@@ -189,24 +218,24 @@ $(function(){
             .html('<div class="alert alert-success">Great ! Let\'s start game. You choose White. Start with First Move.</div>');
         }
     });
-
-
-
+ 
+ 
+ 
     socket.on('oppntChessMove', (requestData) => {
         console.log(requestData);
         let color = requestData.color;
         let source = requestData.from;
         let target = requestData.to;
         let promo = requestData.promo||'';
-
-
+ 
+ 
         chess.move({from:source,to:target,promotion:promo});
         board.position(chess.fen());
         //chess.move(target);
         //chess.setFenPosition();
-
+ 
     });
-
+ 
     socket.on('oppntWon', (requestData) => {
         $('.notification')
         .html('<div class="alert alert-success">You Won !!</div>');
