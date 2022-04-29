@@ -36,9 +36,9 @@ exports = module.exports = function (io) {
             console.log(users);
 
             socket.broadcast.emit("roomDetail", {
-                users: users, 
-            
-                
+                users: users,
+
+
             });
 
         });
@@ -61,7 +61,21 @@ exports = module.exports = function (io) {
         socket.on('sendJoinRequest', (requestData) => {
             //console.log(requestData.room);
             let user = users.filter(user => user.id == socket.id)[0];
+            console.log("list rooms and participants")
+
+
+            console.log(users)
             console.log(user.name)
+            console.log("from room" + user.room)
+            console.log("send JoinRequest... to room ")
+            console.log(requestData.room)
+            socket.join(requestData.room)
+            user.room = requestData.room 
+            console.log("trete raum bei")
+            console.log("Zeige aktuellen raum")
+            console.log(users)
+
+
             socket.broadcast.to(requestData.room).emit('joinRequestRecieved', {
                 id: user.id,
                 name: user.name,

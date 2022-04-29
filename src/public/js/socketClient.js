@@ -54,7 +54,8 @@ $(function () {
 
     $(document).on('click', '.joinGameRequest', function () {
         socket.emit('sendJoinRequest', {
-            room: $(this).data('room')
+            room: $(this).data('room'),
+            
         });
         $('.notification').html('<div class="alert alert-success">Game request sent.</div>');
     });
@@ -67,12 +68,12 @@ $(function () {
 
 
     $(document).on('click', '.acceptGameRequest', function () {
-
+        currentRoom = $(this).data('room')
         socket.emit('acceptGameRequest', {
             room: $(this).data('room')
         });
         console.log($(this).data('room') + "+Raumnummer von angenommenem Spiel")
-        $('#onlinePlayers').hide();
+        //$('#onlinePlayers').hide();
 
         $('.notification')
             .html('<div class="alert alert-success">Please wait for game initialize from host.</div>');

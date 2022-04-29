@@ -13,7 +13,8 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-          const socket = io();
+         // const socket = io();
+          var socket = io({transports: ['websocket'], upgrade: false});
         </script>  
         <script src="/js/socketClient.js"></script>
 

@@ -1,5 +1,7 @@
 var board = null;
 var chess = new Chess();
+var currentRoom
+
 
 const boardConfig = {
     draggable: true,
@@ -17,7 +19,8 @@ function onDragStart (source, piece, position, orientation) {
    // console.log(chess.turn());
     if(chess.in_checkmate()){
         let confirm = window.confirm("You Lost! Reset the game?");
-        let room = $('#onlinePlayers li.active button').data('room');
+        //let room = $('#onlinePlayers li.active button').data('room');
+ //       let room = $('#onlinePlayers li.active button').data('room');
         if(confirm){
             if(isMachinePlayer){
                 chess.reset();
@@ -26,7 +29,7 @@ function onDragStart (source, piece, position, orientation) {
 
                 //socket.requestNewGame();
                 socket.emit('gameWon', { 
-                    room: room,
+                    room: currentRoom,
                 });
             }
         }
@@ -44,7 +47,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation){
     
     // see if the move is legal
     let turn = chess.turn();
-    let room = $('#onlinePlayers li.active button').data('room');
+    // let room = $('#onlinePlayers li.active button').data('room');
     let move = chess.move({
         color: turn,
         from: source,
@@ -62,7 +65,7 @@ function onDrop(source, target, piece, newPos, oldPos, orientation){
     }
     else { 
         socket.emit('chessMove', { 
-            room: room,
+            room: currentRoom,
             color: turn, 
             from: move.from, 
             to: move.to,
@@ -96,13 +99,14 @@ function updateStatus(){
 $(function(){  
 
     socket.on('oppntChessMove', (requestData) => {
+        console.log("oppntChessMove")
         console.log(requestData);
         let color = requestData.color;
         let source = requestData.from;
         let target = requestData.to;
         let promo = requestData.promo||'';
 
-
+        console.log("currentroom in chessgame.js" + currentRoom)
         chess.move({from:source,to:target,promotion:promo});
         board.position(chess.fen());
         //chess.move(target);
@@ -113,9 +117,10 @@ $(function(){
 
     
     $(document).on('click', '.setOrientation', function(){
-        
+        currentRoom = $(this).data('room')
+        console.log(currentRoom)
         socket.emit('setOrientation', {
-            room: $(this).data('room'),
+            room: $(this).data('room'), //hole room aus den Botton html tag 
             color: ($(this).data('color') === 'black') ? 'white': 'black'
         });
         
@@ -131,6 +136,7 @@ $(function(){
     });
     socket.on('setOrientationOppnt', (requestData) => {
         //console.log(requestData);
+
         board.orientation(requestData.color);
         board.start();
         $('#onlinePlayers li#'+requestData.id).addClass('active');
