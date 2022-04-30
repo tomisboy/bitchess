@@ -3,6 +3,7 @@ var chess = new Chess();
 var currentRoom
 var gameover = 0
 var winningcolor
+var currentColor
 var currentUser = $('#userid').html() //lese den aktuellen User aus dem html element 
 var currentUsername = $('#username').html()
 const boardConfig = {
@@ -17,51 +18,60 @@ var isMachinePlayer = false;
 board = Chessboard('chessBoard', boardConfig);
 
 function onDragStart(source, piece, position, orientation) {
-// funktion wird aufgerufen wenn eine Figur berührt wird (angeklickt)
-    if (gameover < 1) { //überprüfe ob das Spiel vorbei ist
-        if (chess.in_checkmate()) {
-            let confirm = window.confirm("Du befindest dich in Schachmatt und hast somit Verloren");
-            $('.notification')
+    if ((chess.turn() === currentColor)) { // überprüfe ob du dran bist
+        // funktion wird aufgerufen wenn eine Figur berührt wird (angeklickt)
+        if (gameover < 1) { //überprüfe ob das Spiel vorbei ist
+            if (chess.in_checkmate()) {
+                let confirm = window.confirm("Du befindest dich in Schachmatt und hast somit Verloren");
+                $('.notification')
                     .html('<div class="alert alert-success">"Spielende du hast leider Verloren."</div>');
-            gameover = 1
-            if (confirm) {
-                if (isMachinePlayer) {
-                    chess.reset();
-                    board.start();
-                } else {
+                gameover = 1
+                if (confirm) {
+                    if (isMachinePlayer) {
+                        chess.reset();
+                        board.start();
+                    } else {
 
+                    }
                 }
             }
+
+
+            // heben Sie keine Teile auf, wenn das Spiel vorbei ist
+            // oder du nicht clientseitig dran bist 
+            if (chess.game_over()||
+                (chess.turn() === 'w' && piece.search(/^b/) !== -1) ||
+                (chess.turn() === 'b' && piece.search(/^w/) !== -1)) {
+                return false
+            }
         }
-        // do not pick up pieces if the game is over
-        // or if it's not that side's turn
-        if (chess.game_over() ||
-            (chess.turn() === 'w' && piece.search(/^b/) !== -1) ||
-            (chess.turn() === 'b' && piece.search(/^w/) !== -1)) {
-            return false
+        else {
+            window.alert("gameover");
         }
     }
     else {
-        window.alert("gameover");
+        //du bist nicht dran returne false und warte auf den Zug vom Gegner
+        return false
     }
-
 }
 function onDrop(source, target, piece, newPos, oldPos, orientation) {
-//Funktion wird ausgewählt wenn Figur letztendlich losgelassen wurd und der Zug somit bestätigt wurde
+
+
+    //Funktion wird ausgewählt wenn Figur letztendlich losgelassen wurd und der Zug somit bestätigt wurde
     if (gameover < 1) {
-        let turn = chess.turn(); //überprüfe auf valieden Zug
+        let turn = chess.turn();
         let move = chess.move({ //speichere den Move in das Elemet move
             color: turn,
             from: source,
             to: target,
-
+            promotion: 'q'
             //promotion: document.getElementById("promote").value
         });
 
         // illegal move
         if (move === null) return 'snapback';
         updateStatus();
-        
+
         if (isMachinePlayer) {
             //window.setTimeout(chessEngine.prepareAiMove(),500);
         }
@@ -77,7 +87,10 @@ function onDrop(source, target, piece, newPos, oldPos, orientation) {
 
     } else {
         window.alert("gameover"); //spiel ist vorbei es kommt eine meldung 
+
+
     }
+
 }
 
 function updateStatus() {
@@ -91,7 +104,7 @@ function updateStatus() {
         gameover = 1;
         winningcolor = (moveColor === 'Black') ? 'weiß' : 'schwarz'
         $('.notification')
-        .html('<div class="alert alert-success">"Spielende --> ' + winningcolor + ' <-- hat gewonnen."</div>');
+            .html('<div class="alert alert-success">"Spielende --> ' + winningcolor + ' <-- hat gewonnen."</div>');
 
 
         // Wenn Spiel zu ende Send das Spiel ist vorbei Event an das Backend.
@@ -111,6 +124,8 @@ function updateStatus() {
         gameover = 1;
         return;
     }
+
+
 }
 
 
@@ -140,6 +155,7 @@ $(function () {
 
 
     $(document).on('click', '.setOrientation', function () {
+        currentColor = ($(this).data('color') === 'black') ? 'b' : 'w'
         currentRoom = $(this).data('room') //lese den aktuellen Raum aus dem HTML Element des Knopfes
         socket.emit('setOrientation', {
             room: $(this).data('room'), //hole room aus den Botton html tag 
@@ -165,6 +181,7 @@ $(function () {
         }
     });
     socket.on('setOrientationOppnt', (requestData) => {
+        currentColor = (requestData.room === 'black') ? 'w' : 'b'
         //Dieses Event bekommt der gegner (des Host)
         //Diesem wird gesagt wie er Sein Schachboard darzustellen hat 
         currentRoom = requestData.room //lese den aktuellen Raum aus dem HTML Element des Knopfes
