@@ -109,19 +109,22 @@ exports = module.exports = function (io) {
             var k 
             var ratingWin
             var ratingLost
+            var gameswon
             var p1
             var p2
+
             //diese Funktion hat nun den gewinner und den Verlierer einer Schachpartie und kann somit die Elo bewertung in der DB durchführen
             console.log("Das Spiel ist aus. Gewonnen hat  " + userData.won)
             console.log("Das Spiel ist aus. Verloren hat  " + userData.lost)
             db.updategames(userData.won) //elo in der DB ändern
             //berechnung: 
             //https://www.geeksforgeeks.org/elo-rating-algorithm/#:~:text=Elo%20Rating%20Algorithm%20is%20widely,player%20with%20lower%20ELO%20rating.
-            db.getRating(userData.won) //ratingWin
-            db.getRating(userData.lost) // ratingLost
-            db.getGameswon(userData.won) // gameswon
+            db.getRating(userData.won) //returned ratingWin
+            db.getRating(userData.lost) // returned ratingLost
+            db.getGameswon(userData.won) // returned gameswon
             //{
-            //    k = (gameswon > 10) ? 30 : 16; 
+            //    k = (gameswon > 10) ? 30 : 16;  //wenn jememand mehr als 10 Spiele gewonnen hat
+                                                  // erhöht sich der K multiplikator https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
             //}
             //p1 = (1 / (1 + (Math.pow(10, ((ratingLost - ratingWin) / 400)))))
             //p2 = (1 / (1 + (Math.pow(10, ((ratingWin - ratingLost) / 400)))))
