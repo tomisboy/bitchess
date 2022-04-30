@@ -17,6 +17,7 @@ function randomRoomId() { // funktion um einen zufälligen raumnamen zu erstelle
 exports = module.exports = function (io) {
 
     io.on('connection', (socket) => {
+
         //   Sobald eine Socket Clientseitig initialisiert wird, wird dieses Code ausgeführt:
 
 
@@ -105,11 +106,40 @@ exports = module.exports = function (io) {
         });
 
         socket.on('calculateELO', (userData) => {
+            var k 
+            var ratingWin
+            var ratingLost
+            var p1
+            var p2
             //diese Funktion hat nun den gewinner und den Verlierer einer Schachpartie und kann somit die Elo bewertung in der DB durchführen
             console.log("Das Spiel ist aus. Gewonnen hat  " + userData.won)
             console.log("Das Spiel ist aus. Verloren hat  " + userData.lost)
-            db.eloupdate(userData.won, userData.lost) //elo in der DB ändern
+            db.updategames(userData.won) //elo in der DB ändern
+            //berechnung: 
+            //https://www.geeksforgeeks.org/elo-rating-algorithm/#:~:text=Elo%20Rating%20Algorithm%20is%20widely,player%20with%20lower%20ELO%20rating.
+            db.getRating(userData.won) //ratingWin
+            db.getRating(userData.lost) // ratingLost
+            db.getGameswon(userData.won) // gameswon
+            //{
+            //    k = (gameswon > 10) ? 30 : 16; 
+            //}
+            //p1 = (1 / (1 + (Math.pow(10, ((ratingLost - ratingWin) / 400)))))
+            //p2 = (1 / (1 + (Math.pow(10, ((ratingWin - ratingLost) / 400)))))
+            //ratingWin = ratingWin + k * (1 - p1)
+            //ratingLost = ratingLost + k * (0 - p2)
+
+            //db.updateRating(userData.won, ratingWin)
+            //db.updateRating(userData.lost, ratingLost)
+
+
+
+
         });
+
+
+
+
+        
 
 
 
