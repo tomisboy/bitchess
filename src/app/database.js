@@ -193,12 +193,13 @@ module.exports = {
 
   /////new elo algo
 
-  getRating: function (id) {
+  getRating: function (id, callback) {
     try {
       var con = mysql.createConnection(dbconfig);
       con.connect()
       con.query("SELECT gameswon FROM users WHERE id = ?", [id], function (err, result) {
         if (err) throw err;
+        callback(result[0])
       }),
         con.end
     } catch (e) {

@@ -119,7 +119,9 @@ exports = module.exports = function (io) {
             db.updategames(userData.won) //elo in der DB ändern
             //berechnung: 
             //https://www.geeksforgeeks.org/elo-rating-algorithm/#:~:text=Elo%20Rating%20Algorithm%20is%20widely,player%20with%20lower%20ELO%20rating.
-            db.getRating(userData.won) //returned ratingWin
+            db.getRating(userData.won, function(data){
+                ratingWin = data;
+            }) //returned ratingWin
             db.getRating(userData.lost) // returned ratingLost
             db.getGameswon(userData.won) // returned gameswon
             //{
@@ -138,11 +140,6 @@ exports = module.exports = function (io) {
 
 
         });
-
-
-
-
-        
 
 
 
