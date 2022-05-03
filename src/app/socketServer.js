@@ -1,5 +1,10 @@
 const db = require('./database.js')
-
+var k 
+var ratingWin
+var ratingLost
+var gameswon
+var p1
+var p2
 
 
 const users = []; // Serverseitiges Array, welches aktuelle online Spieler speichert
@@ -106,12 +111,7 @@ exports = module.exports = function (io) {
         });
 
         socket.on('calculateELO', (userData) => {
-            var k 
-            var ratingWin
-            var ratingLost
-            var gameswon
-            var p1
-            var p2
+
 
             //diese Funktion hat nun den gewinner und den Verlierer einer Schachpartie und kann somit die Elo bewertung in der DB durchführen
             console.log("Das Spiel ist aus. Gewonnen hat  " + userData.won)
@@ -119,12 +119,51 @@ exports = module.exports = function (io) {
             db.updategames(userData.won) //elo in der DB ändern
             //berechnung: 
             //https://www.geeksforgeeks.org/elo-rating-algorithm/#:~:text=Elo%20Rating%20Algorithm%20is%20widely,player%20with%20lower%20ELO%20rating.
-            db.getRating(userData.won, function(data){
-                ratingWin = data;
-            }) //returned ratingWin
-            db.getRating(userData.lost) // returned ratingLost
-            db.getGameswon(userData.won) // returned gameswon
-            //{
+            db.getRating(userData.won, function (data){
+                console.log(data[0])
+                ratingWin = data[0].rating
+                console.log(data[0].rating + " rating winner")
+
+                db.getRating(userData.lost, function (data){
+                    console.log(data[0])
+                    ratingLost = data[0].rating
+                    //console.log(ratingWin + "ratingwin")
+                    console.log(data[0].rating + " rating Looser")
+
+
+                    db.getGameswon(userData.won, function (data){
+                        console.log(data[0])
+                        gameswon = data[0].gameswon
+                        k = (gameswon > 10) ? 30 : 16;  //wenn jememand mehr als 10 Spiele gewonnen hat
+                                                // erhöht sich der K multiplikator https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
+            
+                        p1 = (1 / (1 + (Math.pow(10, ((ratingLost - ratingWin) / 400)))))
+                        p2 = (1 / (1 + (Math.pow(10, ((ratingWin - ratingLost) / 400)))))
+                        ratingWin = ratingWin + k * (1 - p1)
+                        ratingLost = ratingLost + k * (0 - p2)
+                        if(ratingWin < 0){
+                            ratingWin = 0 
+                        }
+                        if(ratingLost < 0){
+                            ratingLost = 0 
+                        }
+                        console.log("new ratingWin "+ Math.trunc(ratingWin))
+                        console.log("Winner "+ userData.won)
+                        console.log("new ratingLost "+ Math.trunc(ratingLost))
+                        console.log("Looser "+ userData.lost)
+
+
+                        db.updateRating(userData.won, Math.trunc(ratingWin))
+                        db.updateRating(userData.lost, Math.trunc(ratingLost))
+                    })
+
+                })   
+
+
+            
+
+            }) 
+
             //    k = (gameswon > 10) ? 30 : 16;  //wenn jememand mehr als 10 Spiele gewonnen hat
                                                   // erhöht sich der K multiplikator https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
             //}

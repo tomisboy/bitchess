@@ -197,10 +197,10 @@ module.exports = {
     try {
       var con = mysql.createConnection(dbconfig);
       con.connect()
-      con.query("SELECT gameswon FROM users WHERE id = ?", [id], function (err, result) {
-        if (err) throw err;
-        callback(result[0])
-      }),
+      con.query("SELECT rating FROM users WHERE id = ?", [id], function (err1, result) {
+        if (err1) throw err1;
+        callback(result)
+      })
         con.end
     } catch (e) {
       console.log(e)
@@ -208,12 +208,13 @@ module.exports = {
   },
 
 
-  getGameswon: function (id) {
+  getGameswon: function (id, callback) {
     try {
       var con = mysql.createConnection(dbconfig);
       con.connect()
       con.query("SELECT gameswon FROM users WHERE id = ?", [id], function (err, result) {
         if (err) throw err;
+        callback(result)
       }),
         con.end
     } catch (e) {
