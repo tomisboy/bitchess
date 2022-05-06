@@ -1,5 +1,4 @@
 name: Build and deploy
-
 on:
   push:
     branches:
@@ -22,7 +21,11 @@ jobs:
         uses: docker/setup-buildx-action@v1
         
       - name: Setting DB Connection String
-        run: touch src/.env && echo "${{ secrets.DB_HOST }}" >> src/.env && echo "${{ secrets.DB_PASSWORD }}" >> src/.env && echo "${{ secrets.SESSION_PWD }}" >> src/.env
+        run: >
+              touch src/.env && 
+              echo "${{ secrets.DB_HOST }}" >> src/.env && 
+              echo "${{ secrets.DB_PASSWORD }}" >> src/.env && 
+              echo "${{ secrets.SESSION_PWD }}" >> src/.env
          
       - name: Build and push
         uses: docker/build-push-action@v2

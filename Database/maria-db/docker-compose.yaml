@@ -7,10 +7,6 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: $DB_Passwort
-#Disable Port Forwarding after development
-    ports:
-      - 3306:3306
-####
     networks:
       - traefik_proxy
 networks:
