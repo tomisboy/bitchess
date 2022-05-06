@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      
-  
   
 jobs:
  build:
@@ -25,8 +23,7 @@ jobs:
         
       - name: Setting DB Connection String
         run: touch src/.env && echo "${{ secrets.DB_HOST }}" >> src/.env && echo "${{ secrets.DB_PASSWORD }}" >> src/.env && echo "${{ secrets.SESSION_PWD }}" >> src/.env
-        
-        
+         
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
@@ -43,4 +40,3 @@ jobs:
         
       - name: Start Docker-App
         run: docker-compose up -d
-        
