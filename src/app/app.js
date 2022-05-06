@@ -50,13 +50,6 @@ app.get('/create', checkAuthenticated, (req, res) => {
     res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
-app.get('/join', checkAuthenticated, (req, res) => {
-    res.render('join.ejs', { username: req.user.username, userid: req.user.id })
-})
-
-app.get('/statistics', checkAuthenticated, (req, res) => {
-    res.render('statistics.ejs', { username: req.user.username, userid: req.user.id })
-})
 app.get('/createbotgame', checkAuthenticated, checkBotgame)
 
 app.get('/botgame', checkAuthenticated, (req, res) => {
@@ -67,20 +60,9 @@ app.get('/leaderboard', checkAuthenticated, (req, res) => {
     res.render('leaderboard.ejs', { username: req.user.username, userid: req.user.id })
 })
 
-app.get('/joinpublic', checkAuthenticated, (req, res) => {
-    res.render('joinpublic.ejs', { username: req.user.username, userid: req.user.id })
-})
-
-app.get('/joinprivate', checkAuthenticated, (req, res) => {
-    res.render('joinprivate.ejs', { username: req.user.username, userid: req.user.id })
-})
 
 app.get('/profile', checkAuthenticated, (req, res) => {
     res.render('profile.ejs', { username: req.user.username, userid: req.user.id })
-})
-
-app.get('/chessgame', checkAuthenticated, (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
 })
 
 app.post('/loginsubmit', passport.authenticate('local',{
@@ -89,9 +71,6 @@ app.post('/loginsubmit', passport.authenticate('local',{
     failureFlash: true
 }))
 
-app.post('/chessgame', checkAuthenticated, (req, res) => {
-    res.render('chessgame.ejs', { username: req.user.username, userid: req.user.id })
-})
 
 app.post('/registersubmit', async (req, res) =>{
     try{
