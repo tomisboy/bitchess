@@ -1,8 +1,14 @@
 // $.post("/creategame", {socketid: room, public: togglemode})
 
 $(function () {
+    var activegame = 0;
+    $(window).on("beforeunload", function () {
+        if(activegame){ // überprüfe ob ein Spiel aktive
+        return ("dont leave")}; // Spiel (Socket) ist aktiv es soll eine Warnung beim Verlassen oder Neuladen der Webseit erscheinen
+    });
 
     $(document).ready(function () {
+        
         socket.emit('StartLobby', //Wenn die Seite komplett geladen wird, 
             // dann wird ein StartLobby Event an das Socket Backend gesendet.
             // Dieses triggert den Start der Socketverbindung
@@ -49,6 +55,7 @@ $(function () {
 
     $(document).on('click', '.acceptGameRequest', function () {
         //funkion wird aufgerufen wenn auf den Annehmen button(acceptGameRequest) gedrückt wird 
+        activegame = 1; //setzte das Spiel auf aktiv
         socket.emit('acceptGameRequest', {
         });
 
@@ -58,7 +65,7 @@ $(function () {
     });
 
     socket.on('gameRequestAccepted', (userData) => {
-
+        activegame = 1;   //setzte das Spiel auf aktiv
         //ab hier ist die Spielanfrage angenommen und der Host wird entscheiden welche Farbe er spielen wird
         //dazu werden zwei Knöpfe erstellt die die auswahl der Farbe angeben.
         // weiter geht es anschließend in der chessgame.js
