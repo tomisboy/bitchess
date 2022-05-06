@@ -150,20 +150,6 @@ exports = module.exports = function (io) {
 
             }) 
 
-            //    k = (gameswon > 10) ? 30 : 16;  //wenn jememand mehr als 10 Spiele gewonnen hat
-                                                  // erhöht sich der K multiplikator https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
-            //}
-            //p1 = (1 / (1 + (Math.pow(10, ((ratingLost - ratingWin) / 400)))))
-            //p2 = (1 / (1 + (Math.pow(10, ((ratingWin - ratingLost) / 400)))))
-            //ratingWin = ratingWin + k * (1 - p1)
-            //ratingLost = ratingLost + k * (0 - p2)
-
-            //db.updateRating(userData.won, ratingWin)
-            //db.updateRating(userData.lost, ratingLost)
-
-
-
-
         });
 
 
@@ -187,7 +173,6 @@ exports = module.exports = function (io) {
 
 
         socket.on('send-chat-message', (requestData) => { // middleware funktion um gezogene Figure an den anderen Client zu senden.
-            console.log(requestData.message  +" sende weiter an  " + requestData.room );
             socket.broadcast.to(requestData.room).emit('chat-sent', {
                 //sende an den Raum zuürck die nachricht und von wem die Nachricht kommt
                 message : requestData.message,

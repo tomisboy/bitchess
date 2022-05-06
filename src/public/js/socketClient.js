@@ -1,7 +1,7 @@
 // $.post("/creategame", {socketid: room, public: togglemode})
-
-$(function () {
     var activegame = 0;
+$(function () {
+
     $(window).on("beforeunload", function () {
         if(activegame){ // überprüfe ob ein Spiel aktive
         return ("dont leave")}; // Spiel (Socket) ist aktiv es soll eine Warnung beim Verlassen oder Neuladen der Webseit erscheinen
