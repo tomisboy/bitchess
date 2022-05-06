@@ -134,7 +134,7 @@ exports = module.exports = function (io) {
                     db.getGameswon(userData.won, function (data){
                         console.log(data[0])
                         gameswon = data[0].gameswon
-                        k = (gameswon > 10) ? 30 : 16;  //wenn jememand mehr als 10 Spiele gewonnen hat
+                        k = (gameswon > 10) ? 16 : 32;  //wenn jememand mehr als 10 Spiele gewonnen hat
                                                 // erhöht sich der K multiplikator https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details
             
                         p1 = (1 / (1 + (Math.pow(10, ((ratingLost - ratingWin) / 400)))))
