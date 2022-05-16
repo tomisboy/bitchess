@@ -12,7 +12,7 @@
         <style>
 
             #message-container {
-            width: 80%;
+            width: 40%;
             max-width: 1200px;
     }
 
@@ -33,14 +33,15 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3 col-sm-12">
                         
-                        <div id="chat"><h1 class="text-center">
+                        <div id="chat"><h1 class="text-center" style="color: #ffeba7; text-align: center;">
                             Chat
                         </h1>
-                                <div id="message-container">
+                                <div id="message-container" style="display: block; margin:auto;">
                                 <form id="send-container" onSubmit="return false;" > <!-- onSubmit="return false; verhindert neuladen durch Enter-->
-                                    <input type="text" id="message-input">
+                                    <div style="display: block; margin:auto; border: 0px; background-color: transparent;">
+                                    <input type="text" id="message-input" style="display:inline; margin: auto;">
                                     <button type="button"  class="btn btn-primary btn-sm sendbutton" id="sendbutton">Send</button>
-                                    
+                                    </div>
                                   </form>
                         </div> 
                     </div>

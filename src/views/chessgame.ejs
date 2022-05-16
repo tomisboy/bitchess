@@ -24,34 +24,23 @@
        
     </head>
 
-    <body>
+    <body style="background-color: #1f2029;">
         <%- include('./header.ejs') %>
-        <div class="col-md-9">
-            <div class="notification"></div>
-            
-            <div id="chessBoard" style="width:450px;padding-top:50px; margin:auto;"></div>
+        <div class="col-md-9" style="display: block; margin:auto;">
+            <div class="notification" style="padding-top: 20px;"></div>
+            <div id="chessBoard" style="width:450px;padding-top:30px; margin:auto;"></div>
         </div>
-
-
-
-
-        <div class="col-md-3" id=onlinePlayers-class>
-            <h2>Online Players</h2>
+        <div class="col-md-3" id=onlinePlayers-class style="display: block; margin:auto; padding-top:20px;">
+            <h2 style="color: #ffeba7; text-align: center;">Online Players</h2>
             <ul class="list-group" id="onlinePlayers">
                 <li class="list-group-item">
                 </li>
-            </ul>
-            
+            </ul>    
         </div>
-      
-        
         <i class="card-icon back-arrow bi bi-arrow-left" onclick="location.href='homepage'"></i>
-        
-        <div id="chessBoard" style="width:700px;padding-top:50px; margin:auto;"></div>
+        <div id="chessBoard" style="width:700px;padding-top:30px; margin:auto;"></div>
         <div id chat><%- include('./chat.ejs') %> </div>
-        
         <%- include('./footer.ejs') %>
         <script src="/js/chessgame.js"></script>
-
     </body>
 </html>
