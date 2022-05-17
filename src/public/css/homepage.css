@@ -123,4 +123,38 @@ th {
   border-top: 0px !important;
 }
 
+.chessboardFrame {
+  display:block;
+  margin: auto;
+  width: 450px;
+  padding-top: 30px;
+}
+
+.chessboard{
+  display:block;
+  margin: auto;
+  width: 450px;
+}
+
+.onlinePlayer {
+  display:block;
+  margin: auto;
+  padding-top: 20px;
+  color: #ffeba7;
+}
+
+.flex-chess-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 30px 30px;
+  margin-bottom: 50px;
+}
+
+.flex-chess-item {
+  flex-basis: auto;
+  align-self: auto;
+}
 

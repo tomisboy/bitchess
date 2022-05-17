@@ -8,21 +8,23 @@
         <link rel="stylesheet" href="lib/chessboardjs/css/chessboard-1.0.0.min.css"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>  
-
+        <style type="text/css">
+            body { color: #ffeba7 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+         </style>
         <style>
 
             #message-container {
-            width: 80%;
+            width: 40%;
             max-width: 1200px;
     }
 
             #message-container div {
-      background-color: #CCC;
+      background-color: rgb(71, 71, 71);
       padding: 5px;
     }
 
     #message-container div:nth-child(2n) {
-      background-color: #FFF;
+      background-color: rgb(51, 51, 51);
     }
 
 
@@ -33,14 +35,15 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3 col-sm-12">
                         
-                        <div id="chat"><h1 class="text-center">
+                        <div id="chat"><h1 class="text-center" style="color: #ffeba7; text-align: center;">
                             Chat
                         </h1>
-                                <div id="message-container">
+                                <div id="message-container" style="display: block; margin:auto;">
                                 <form id="send-container" onSubmit="return false;" > <!-- onSubmit="return false; verhindert neuladen durch Enter-->
-                                    <input type="text" id="message-input">
+                                    <div style="display: block; margin:auto; border: 0px; background-color: transparent;">
+                                    <input type="text" id="message-input" style="display:inline; margin: auto;">
                                     <button type="button"  class="btn btn-primary btn-sm sendbutton" id="sendbutton">Send</button>
-                                    
+                                    </div>
                                   </form>
                         </div> 
                     </div>
