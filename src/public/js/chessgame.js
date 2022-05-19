@@ -18,6 +18,7 @@ var isMachinePlayer = false;
 board = Chessboard('chessBoard', boardConfig);
 
 function onDragStart(source, piece, position, orientation) {
+    console.log(currentColor + "turn:" + chess.turn())
     if ((chess.turn() === currentColor)) { // überprüfe ob du dran bist
         // funktion wird aufgerufen wenn eine Figur berührt wird (angeklickt)
         if (gameover < 1) { //überprüfe ob das Spiel vorbei ist
@@ -155,17 +156,18 @@ $(function () {
 
 
     $(document).on('click', '.setOrientation', function () {
+        board.orientation($(this).data('color'));  //starte das Schachfeld auf der Hostseite mit der ausgewählten Farbe
+        board.start();
+
         currentColor = ($(this).data('color') === 'black') ? 'b' : 'w'
         currentRoom = $(this).data('room') //lese den aktuellen Raum aus dem HTML Element des Knopfes
         socket.emit('setOrientation', {
             room: $(this).data('room'), //hole room aus den Botton html tag 
-
-            color: ($(this).data('color') === 'black') ? 'white' : 'black', // hier wird jenachdem welche Color gewählt wurde diese für den gegener geswitsched
+            color: (currentColor === 'b') ? 'white' : 'black', // hier wird jenachdem welche Color gewählt wurde diese für den gegener geswitsched
             userid: $('#userid').html(), //lese die aktuelle UserID aus
         });
 
-        board.orientation($(this).data('color'));  //starte das Schachfeld auf der Hostseite mit der ausgewählten Farbe
-        board.start();
+
 
         $('#onlinePlayers-class').hide(); // blende die Lobby auf der Seite des Anfragenden aus
         $('#chat').show() // blende den Chat ein
@@ -181,13 +183,16 @@ $(function () {
         }
     });
     socket.on('setOrientationOppnt', (requestData) => {
-        currentColor = (requestData.room === 'black') ? 'w' : 'b'
+        board.orientation(requestData.color); 
+        board.start();
+
+        currentColor = (requestData.color === 'black') ? 'b' : 'w' // mache black in b und white in w
         //Dieses Event bekommt der gegner (des Host)
         //Diesem wird gesagt wie er Sein Schachboard darzustellen hat 
         currentRoom = requestData.room //lese den aktuellen Raum aus dem HTML Element des Knopfes
 
-        board.orientation(requestData.color);
-        board.start();
+   
+
 
 
 
