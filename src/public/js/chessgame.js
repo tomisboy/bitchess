@@ -18,7 +18,6 @@ var isMachinePlayer = false;
 board = Chessboard('chessBoard', boardConfig);
 
 function onDragStart(source, piece, position, orientation) {
-    console.log(currentColor + "turn:" + chess.turn())
     if ((chess.turn() === currentColor)) { // überprüfe ob du dran bist
         // funktion wird aufgerufen wenn eine Figur berührt wird (angeklickt)
         if (gameover < 1) { //überprüfe ob das Spiel vorbei ist
