@@ -1,5 +1,5 @@
 # bitchess an online Multiplayer Chess Application with Node.js
-Product Catalog ( What will be implemented )
+![2022-06-01-12-03-18](https://user-images.githubusercontent.com/15163807/171380403-a51e04d7-08f9-4bb3-acd6-10e4d05e969b.gif)
 
 # Stack Description
 Currently we are using a Linux Server from [hetzner](https://www.hetzner.com/) with a installed Docker-Runtime.
