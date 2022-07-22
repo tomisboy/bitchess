@@ -6,7 +6,7 @@ on:
   
 jobs:
  build:
-   runs-on: self-hosted
+   runs-on: ubuntu
    steps:
       - name: Checkout 
         uses: actions/checkout@v2
@@ -35,11 +35,11 @@ jobs:
           push: true
           tags: bitchess/bitchess-node:latest
           
-      - name: Delete old docker images (locally)
-        run: docker rmi -f bitchess/bitchess-node:latest
+      #- name: Delete old docker images (locally)
+      #  run: docker rmi -f bitchess/bitchess-node:latest
          
-      - name: Delete old docker Instances
-        run: docker rm -f bitchess-node
+      #- name: Delete old docker Instances
+      #  run: docker rm -f bitchess-node
         
-      - name: Start Docker-App
-        run: docker-compose up -d
+      #- name: Start Docker-App
+      #  run: docker-compose up -d
